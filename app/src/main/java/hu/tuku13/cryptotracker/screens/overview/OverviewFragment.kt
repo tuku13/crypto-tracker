@@ -16,10 +16,10 @@ class OverviewFragment() : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentOverviewBinding.inflate(inflater)
-        binding.setLifecycleOwner(this)
+        //binding.setLifecycleOwner(this)
 
         val viewModelFactory = OverviewViewModel.Factory("Ez legyen a szoveg")
-        viewModel =  ViewModelProvider(this, viewModelFactory)
+        viewModel = ViewModelProvider(this, viewModelFactory)
             .get(OverviewViewModel::class.java)
         binding.viewModel =viewModel
 

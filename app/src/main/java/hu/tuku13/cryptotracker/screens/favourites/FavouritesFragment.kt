@@ -17,7 +17,7 @@ class FavouritesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentFavouritesBinding.inflate(layoutInflater)
-        binding.setLifecycleOwner(this)
+        //binding.setLifecycleOwner(this)
 
         val viewModelFactory = FavouriteViewModel.Factory()
         viewModel = ViewModelProvider(this, viewModelFactory)

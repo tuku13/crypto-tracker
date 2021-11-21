@@ -17,8 +17,8 @@ class DetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var binding = FragmentDetailsBinding.inflate(layoutInflater)
-        binding.setLifecycleOwner(this)
+        val binding = FragmentDetailsBinding.inflate(layoutInflater)
+        //binding.setLifecycleOwner(this)
 
         val viewModelFactory = DetailsViewModel.Factory()
         viewModel = ViewModelProvider(this, viewModelFactory)
