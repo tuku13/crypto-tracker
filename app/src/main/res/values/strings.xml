@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">CryptoTracker</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="overview">Overview</string>
+    <string name="favourites">Favourites</string>
+    <string name="portfolio">Portfolio</string>
+    <string name="details">Details</string>
+</resources>
