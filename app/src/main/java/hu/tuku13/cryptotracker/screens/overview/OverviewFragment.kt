@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import hu.tuku13.cryptotracker.adapters.CoinAdapter
 import hu.tuku13.cryptotracker.databinding.FragmentOverviewBinding
 
 class OverviewFragment() : Fragment() {
@@ -21,7 +22,10 @@ class OverviewFragment() : Fragment() {
         val viewModelFactory = OverviewViewModel.Factory("Ez legyen a szoveg")
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(OverviewViewModel::class.java)
-        binding.viewModel =viewModel
+        binding.viewModel = viewModel
+
+        val adapter = CoinAdapter()
+        binding.coinList.adapter = adapter
 
         return binding.root
     }

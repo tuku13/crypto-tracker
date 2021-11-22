@@ -19,7 +19,7 @@ class OverviewViewModel(
         get() = _response
 
     init {
-        loadData()
+        //loadData()
     }
 
     private fun loadData() {
