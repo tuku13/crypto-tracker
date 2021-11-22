@@ -1,8 +1,8 @@
-package hu.tuku13.cryptotracker.domain
+package hu.tuku13.cryptotracker.database
 
-import hu.tuku13.cryptotracker.database.DatabaseCoin
+import hu.tuku13.cryptotracker.domain.Coin
 
-data class Coin(
+data class DatabaseCoin(
     val id: Int,
     val name: String,
     val symbol: String,
@@ -15,10 +15,10 @@ data class Coin(
     val percentChange1h: Double,
     val percentChange24h : Double,
     val percentChange7d: Double,
-    val volumeChange24h: Double) {
-
-    fun asDatabaseModel() : DatabaseCoin {
-        return DatabaseCoin(
+    val volumeChange24h: Double
+) {
+    fun asDomainModel(): Coin {
+        return Coin(
             id = id,
             name = name,
             symbol = symbol,
@@ -35,35 +35,3 @@ data class Coin(
         )
     }
 }
-
-val testBTC = Coin(
-    1,
-    "Bitcoin",
-    "BTC",
-    57000.0,
-    534535345345.0,
-    1,
-    1093458467345.0,
-    "Bitcoin",
-    "",
-    1.2,
-    7.89,
-    12.345,
-    546546354.43
-)
-
-val testETH = Coin(
-    1027,
-    "Ethereum",
-    "ETH",
-    23000.0,
-    5345345345.0,
-    2,
-    10938467345.0,
-    "Bitcoin",
-    "",
-    1.5,
-    8.69,
-    11.345,
-    583444.478
-)

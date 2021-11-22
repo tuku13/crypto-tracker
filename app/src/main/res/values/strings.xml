@@ -6,4 +6,6 @@
     <string name="favourites">Favourites</string>
     <string name="portfolio">Portfolio</string>
     <string name="details">Details</string>
+    <string name="coin_price" formatted="true">$%1$.4f</string>
+    <string name="change_percentage" formatted="true">%1$.1f%%</string>
 </resources>

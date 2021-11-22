@@ -10,11 +10,17 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import hu.tuku13.cryptotracker.R
 import hu.tuku13.cryptotracker.Util
+import hu.tuku13.cryptotracker.domain.Coin
 import hu.tuku13.cryptotracker.domain.testBTC
 import hu.tuku13.cryptotracker.domain.testETH
 
 class CoinAdapter: RecyclerView.Adapter<CoinAdapter.ViewHolder>() {
-    val data = listOf(testBTC, testETH, testETH, testBTC, testBTC, testBTC, testETH, testETH, testETH, testETH, testETH, testBTC)
+    //listOf(testBTC, testETH, testETH, testBTC, testBTC, testBTC, testETH, testETH, testETH, testETH, testETH, testBTC)
+    var coinsList : List<Coin> = emptyList()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
     private lateinit var parentContext: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,14 +31,19 @@ class CoinAdapter: RecyclerView.Adapter<CoinAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = data[position]
+        val item = coinsList[position]
         holder.coinRank.text = "${position + 1}"
         holder.name.text = item.name
         holder.symbol.text = item.symbol
-        holder.price.text = "$${item.price}"
 
-        holder.percentChange24h.text = "${item.percent_change_24h}"
-        if(item.percent_change_24h >= 0) {
+        val priceText = parentContext.getString(R.string.coin_price, item.price)
+        holder.price.text = priceText
+
+        val percentChangeText = parentContext
+            .getString(R.string.change_percentage, item.percentChange24h)
+        holder.percentChange24h.text = percentChangeText
+
+        if(item.percentChange24h >= 0) {
             val color = ContextCompat.getColor(parentContext, R.color.positive_change)
             holder.percentChange24h.setTextColor(color)
         } else {
@@ -45,7 +56,7 @@ class CoinAdapter: RecyclerView.Adapter<CoinAdapter.ViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return data.size
+        return coinsList.size
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

@@ -6,29 +6,21 @@
     android:gravity="center"
     android:orientation="horizontal">
 
-    <Space
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_weight="1" >
-    </Space>
-
     <TextView
         android:id="@+id/coin_rank"
         android:layout_width="40dp"
         android:layout_height="match_parent"
         android:gravity="center"
+        android:layout_marginStart="10dp"
+        android:layout_gravity="start"
         tools:text="100"/>
-
-    <Space
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_weight="1" >
-    </Space>
 
     <ImageView
         android:id="@+id/coin_logo"
         android:layout_width="32dp"
         android:layout_height="32dp"
+        android:gravity="start"
+        android:layout_marginStart="5dp"
         android:src="@drawable/ic_portfolio">
     </ImageView>
 
@@ -42,8 +34,12 @@
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:maxLength="20"
         android:gravity="center"
         android:textSize="16sp"
+        android:layout_gravity="start"
+        android:maxLines="1"
+        android:ellipsize="end"
         tools:text="Bitcoin"/>
 
     <TextView
@@ -66,7 +62,7 @@
         android:layout_height="match_parent"
         android:layout_marginStart="5dp"
         android:gravity="center"
-        android:layout_gravity="center_horizontal"
+        android:layout_gravity="end"
         tools:text="$57,154"/>
 
     <Space
@@ -82,14 +78,9 @@
         android:layout_marginStart="5dp"
         android:gravity="center"
         android:layout_gravity="end"
+        android:text="@string/change_percentage"
         tools:textColor="@color/negative_change"
         tools:text="-3.7%"/>
-
-    <Space
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_weight="1" >
-    </Space>
 
 <!--    <TextView-->
 <!--        android:id="@+id/market_cap"-->

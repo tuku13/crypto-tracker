@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.*
 import hu.tuku13.cryptotracker.network.CoinApi
 import hu.tuku13.cryptotracker.network.CoinApiResponse
+import hu.tuku13.cryptotracker.repository.CoinRepository
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
@@ -14,18 +15,16 @@ class OverviewViewModel(
     val asd : String
 )  : ViewModel(){
 
-    private val _response = MutableLiveData<CoinApiResponse>()
-    val getResponse : LiveData<CoinApiResponse>
-        get() = _response
+    val coins = CoinRepository.coins
 
     init {
-        //loadData()
+        loadData()
     }
 
     private fun loadData() {
         viewModelScope.launch {
             try {
-                _response.value = CoinApi.retrofitService.getCoins(10)
+                CoinRepository.loadCoins(200)
                 Log.d("NETWORK INFO", "Successful")
             } catch (e: Exception) {
                 Log.d("NETWORK INFO", "Failure")
