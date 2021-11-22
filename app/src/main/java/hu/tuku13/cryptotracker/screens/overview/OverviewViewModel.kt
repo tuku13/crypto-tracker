@@ -1,7 +1,10 @@
 package hu.tuku13.cryptotracker.screens.overview
 
+import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
+import hu.tuku13.cryptotracker.database.CoinDao
+import hu.tuku13.cryptotracker.database.getDatabase
 import hu.tuku13.cryptotracker.network.CoinApi
 import hu.tuku13.cryptotracker.network.CoinApiResponse
 import hu.tuku13.cryptotracker.repository.CoinRepository
@@ -12,10 +15,10 @@ import retrofit2.Response
 import java.lang.Exception
 
 class OverviewViewModel(
-    val asd : String
+    val application: Application
 )  : ViewModel(){
-
-    val coins = CoinRepository.coins
+    private val coinRepository = CoinRepository(getDatabase(application))
+    val coins = coinRepository.coins
 
     init {
         loadData()
@@ -24,7 +27,7 @@ class OverviewViewModel(
     private fun loadData() {
         viewModelScope.launch {
             try {
-                CoinRepository.loadCoins(200)
+                coinRepository.loadCoins(200)
                 Log.d("NETWORK INFO", "Successful")
             } catch (e: Exception) {
                 Log.d("NETWORK INFO", "Failure")
@@ -45,11 +48,11 @@ class OverviewViewModel(
     }
 
     class Factory(
-        private val asd: String
+        private val application: Application
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if(modelClass.isAssignableFrom(OverviewViewModel::class.java)) {
-                return OverviewViewModel(asd) as T
+                return OverviewViewModel(application) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")
         }

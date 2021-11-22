@@ -1,8 +1,12 @@
 package hu.tuku13.cryptotracker.database
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import hu.tuku13.cryptotracker.domain.Coin
 
+@Entity(tableName = "coin")
 data class DatabaseCoin(
+    @PrimaryKey
     val id: Int,
     val name: String,
     val symbol: String,
@@ -33,5 +37,11 @@ data class DatabaseCoin(
             percentChange7d = percentChange7d,
             volumeChange24h = volumeChange24h
         )
+    }
+}
+
+fun List<DatabaseCoin>.asDomainModel(): List<Coin> {
+    return map {
+        it.asDomainModel()
     }
 }

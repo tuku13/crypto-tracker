@@ -1,5 +1,6 @@
 package hu.tuku13.cryptotracker.domain
 
+import androidx.room.Database
 import hu.tuku13.cryptotracker.database.DatabaseCoin
 
 data class Coin(
@@ -10,7 +11,7 @@ data class Coin(
     val marketCap: Double,
     val cmcRank: Int,
     val totalSupply: Double,
-    val platform: String, //ha null akkor önmaga lesz a platform
+    val platform: String,
     val dateAdded: String,
     val percentChange1h: Double,
     val percentChange24h : Double,
@@ -33,6 +34,12 @@ data class Coin(
             percentChange7d = percentChange7d,
             volumeChange24h = volumeChange24h
         )
+    }
+}
+
+fun List<Coin>.asDatabaseModel(): List<DatabaseCoin> {
+    return map {
+        it.asDatabaseModel()
     }
 }
 

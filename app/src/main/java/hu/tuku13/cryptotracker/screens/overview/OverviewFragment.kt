@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import hu.tuku13.cryptotracker.adapters.CoinAdapter
+import hu.tuku13.cryptotracker.database.CoinDatabase
 import hu.tuku13.cryptotracker.databinding.FragmentOverviewBinding
 
 class OverviewFragment() : Fragment() {
@@ -21,7 +22,9 @@ class OverviewFragment() : Fragment() {
         val binding = FragmentOverviewBinding.inflate(inflater)
         //binding.setLifecycleOwner(this)
 
-        val viewModelFactory = OverviewViewModel.Factory("Ez legyen a szoveg")
+        val application = requireNotNull(this.activity).application
+
+        val viewModelFactory = OverviewViewModel.Factory(application)
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(OverviewViewModel::class.java)
         binding.viewModel = viewModel
