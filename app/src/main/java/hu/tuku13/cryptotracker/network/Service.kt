@@ -24,10 +24,10 @@ private val retrofit = Retrofit.Builder()
 interface CoinApiService {
     @Headers(HEADER_API_KEY)
     @GET("listings/latest")
-    fun getCoins(
+    suspend fun getCoins(
         @Query("limit") limit: Int,
         //@Query("CMC_PRO_API_KEY") api_key : String = "9ad83e4f-7f92-4bd2-8e9b-79205a560121"
-    ) : Call<String>
+    ) : CoinApiResponse
 }
 
 object CoinApi {

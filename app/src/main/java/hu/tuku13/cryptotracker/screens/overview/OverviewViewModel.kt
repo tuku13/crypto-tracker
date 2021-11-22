@@ -1,22 +1,21 @@
 package hu.tuku13.cryptotracker.screens.overview
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.*
 import hu.tuku13.cryptotracker.network.CoinApi
+import hu.tuku13.cryptotracker.network.CoinApiResponse
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.Exception
 
 class OverviewViewModel(
     val asd : String
 )  : ViewModel(){
 
-    private val _response = MutableLiveData<String>()
-
-    val getResponse : LiveData<String>
+    private val _response = MutableLiveData<CoinApiResponse>()
+    val getResponse : LiveData<CoinApiResponse>
         get() = _response
 
     init {
@@ -24,17 +23,26 @@ class OverviewViewModel(
     }
 
     private fun loadData() {
-        CoinApi.retrofitService.getCoins(10).enqueue(
-            object: Callback<String> {
-                override fun onResponse(call: Call<String>, response: Response<String>) {
-                    _response.value = response.body()
-                    Log.d("Valasz", getResponse.value.toString())
-                }
-
-                override fun onFailure(call: Call<String>, t: Throwable) {
-                    _response.value = "Failure: " + t.message
-                }
-            })
+        viewModelScope.launch {
+            try {
+                _response.value = CoinApi.retrofitService.getCoins(10)
+                Log.d("NETWORK INFO", "Successful")
+            } catch (e: Exception) {
+                Log.d("NETWORK INFO", "Failure")
+                Log.d("NETWORK INFO", e.toString())
+            }
+        }
+//        CoinApi.retrofitService.getCoins(10).enqueue(
+//            object: Callback<String> {
+//                override fun onResponse(call: Call<String>, response: Response<String>) {
+//                    _response.value = response.body()
+//                    Log.d("Valasz", getResponse.value.toString())
+//                }
+//
+//                override fun onFailure(call: Call<String>, t: Throwable) {
+//                    _response.value = "Failure: " + t.message
+//                }
+//            })
     }
 
     class Factory(

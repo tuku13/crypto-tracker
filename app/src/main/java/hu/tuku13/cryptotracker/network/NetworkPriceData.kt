@@ -1,6 +1,9 @@
 package hu.tuku13.cryptotracker.network
 
-data class USD(
+import com.squareup.moshi.JsonClass
+
+@JsonClass(generateAdapter = true)
+data class NetworkPriceData(
     val fully_diluted_market_cap: Double,
     val last_updated: String,
     val market_cap: Double,
