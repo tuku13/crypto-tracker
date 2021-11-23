@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import hu.tuku13.cryptotracker.R
@@ -13,8 +15,9 @@ import hu.tuku13.cryptotracker.Util
 import hu.tuku13.cryptotracker.domain.Coin
 import hu.tuku13.cryptotracker.domain.testBTC
 import hu.tuku13.cryptotracker.domain.testETH
+import hu.tuku13.cryptotracker.screens.overview.OverviewViewModel
 
-class CoinAdapter: RecyclerView.Adapter<CoinAdapter.ViewHolder>() {
+class CoinAdapter(private val onClickListener: OnClickListener): RecyclerView.Adapter<CoinAdapter.ViewHolder>() {
     //listOf(testBTC, testETH, testETH, testBTC, testBTC, testBTC, testETH, testETH, testETH, testETH, testETH, testBTC)
     var coinsList : List<Coin> = emptyList()
         set(value) {
@@ -27,11 +30,14 @@ class CoinAdapter: RecyclerView.Adapter<CoinAdapter.ViewHolder>() {
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater.inflate(R.layout.coin_list_item,parent,false)
         parentContext = parent.context
-        return ViewHolder(view)
+        val viewHolder = ViewHolder(view)
+
+        return viewHolder
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = coinsList[position]
+        holder.item = item
         holder.coinRank.text = "${position + 1}"
         holder.name.text = item.name
         holder.symbol.text = item.symbol
@@ -51,8 +57,11 @@ class CoinAdapter: RecyclerView.Adapter<CoinAdapter.ViewHolder>() {
             holder.percentChange24h.setTextColor(color)
         }
 
-        //holder.marketCap.text = "$${item.market_cap / 1000000}m"
         Util.setImage(item.id, holder.coinLogo)
+        holder.parentLayout.setOnClickListener{
+            onClickListener.onClick(item)
+            Toast.makeText(parentContext, "Clicked on ${item.name}", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun getItemCount(): Int {
@@ -60,12 +69,17 @@ class CoinAdapter: RecyclerView.Adapter<CoinAdapter.ViewHolder>() {
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        lateinit var item: Coin
         val coinRank: TextView = itemView.findViewById(R.id.coin_rank)
         val name: TextView = itemView.findViewById(R.id.name)
         val symbol: TextView = itemView.findViewById(R.id.symbol)
         val price: TextView = itemView.findViewById(R.id.price)
         val percentChange24h: TextView = itemView.findViewById(R.id.percent_change_24h)
-        //val marketCap: TextView = itemView.findViewById(R.id.market_cap)
         val coinLogo: ImageView = itemView.findViewById(R.id.coin_logo)
+        val parentLayout: LinearLayout = itemView.findViewById(R.id.parent_layout)
+    }
+
+    class OnClickListener(val clickListener: (coin: Coin) -> Unit ) {
+        fun onClick(coin: Coin) = clickListener(coin)
     }
 }

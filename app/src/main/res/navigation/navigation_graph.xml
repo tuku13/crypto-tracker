@@ -8,7 +8,13 @@
         android:id="@+id/overviewFragment"
         android:name="hu.tuku13.cryptotracker.screens.overview.OverviewFragment"
         android:label="fragment_overview"
-        tools:layout="@layout/fragment_overview" />
+        tools:layout="@layout/fragment_overview" >
+        <action
+            android:id="@+id/action_overviewFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment"
+            app:popUpTo="@id/overviewFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
     <fragment
         android:id="@+id/favouritesFragment"
         android:name="hu.tuku13.cryptotracker.screens.favourites.FavouritesFragment"
@@ -23,5 +29,12 @@
         android:id="@+id/detailsFragment"
         android:name="hu.tuku13.cryptotracker.screens.details.DetailsFragment"
         android:label="fragment_details"
-        tools:layout="@layout/fragment_details" />
+        tools:layout="@layout/fragment_details" >
+        <action
+            android:id="@+id/action_detailsFragment_to_overviewFragment"
+            app:destination="@id/overviewFragment" />
+        <argument
+            android:name="coin"
+            app:argType="hu.tuku13.cryptotracker.domain.Coin" />
+    </fragment>
 </navigation>

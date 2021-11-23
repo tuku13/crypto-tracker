@@ -14,7 +14,7 @@ data class DatabaseCoin(
     val marketCap: Double,
     val cmcRank: Int,
     val totalSupply: Double,
-    val platform: String, //ha null akkor önmaga lesz a platform
+    val platform: String,
     val dateAdded: String,
     val percentChange1h: Double,
     val percentChange24h : Double,

@@ -10,6 +10,9 @@ interface CoinDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertCoinsWithReplace(coins: List<DatabaseCoin>)
+
+    @Delete()
+    fun removeCoin(coin: DatabaseCoin)
 }
 
 @Database(entities = [DatabaseCoin::class], version = 1)

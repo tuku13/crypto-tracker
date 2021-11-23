@@ -52,14 +52,18 @@ class CoinRepository(private val database: CoinDatabase) {
         }
     }
 
+    private fun loadCoinsFromDatabase() {
+        val databaseCoinList = database.coinDao.getCoins()
+        val coinList = databaseCoinList.asDomainModel()
+        _coins.postValue(coinList)
+    }
+
     suspend fun loadCoins(limit : Int = 15) {
         withContext(Dispatchers.IO) {
             if(USE_INTERNET) {
                 downloadCoinsFromAPI(limit)
             } else {
-                val databaseCoinList = database.coinDao.getCoins()
-                val coinList = databaseCoinList.asDomainModel()
-                _coins.postValue(coinList)
+                loadCoinsFromDatabase()
             }
         }
     }

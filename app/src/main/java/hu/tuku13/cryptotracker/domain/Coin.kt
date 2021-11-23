@@ -1,8 +1,11 @@
 package hu.tuku13.cryptotracker.domain
 
+import android.os.Parcelable
 import androidx.room.Database
 import hu.tuku13.cryptotracker.database.DatabaseCoin
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Coin(
     val id: Int,
     val name: String,
@@ -16,7 +19,7 @@ data class Coin(
     val percentChange1h: Double,
     val percentChange24h : Double,
     val percentChange7d: Double,
-    val volumeChange24h: Double) {
+    val volumeChange24h: Double) : Parcelable {
 
     fun asDatabaseModel() : DatabaseCoin {
         return DatabaseCoin(

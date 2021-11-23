@@ -7,9 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import hu.tuku13.cryptotracker.adapters.CoinAdapter
-import hu.tuku13.cryptotracker.database.CoinDatabase
 import hu.tuku13.cryptotracker.databinding.FragmentOverviewBinding
+import hu.tuku13.cryptotracker.repository.CoinRepository
 
 class OverviewFragment() : Fragment() {
     private lateinit var viewModel: OverviewViewModel
@@ -29,7 +32,21 @@ class OverviewFragment() : Fragment() {
             .get(OverviewViewModel::class.java)
         binding.viewModel = viewModel
 
-        adapter = CoinAdapter()
+        viewModel.navigateToCoinDetails.observe(viewLifecycleOwner, Observer {
+            if(it != null) {
+                this.findNavController().navigate(
+                        OverviewFragmentDirections.actionOverviewFragmentToDetailsFragment(it)
+                )
+                viewModel.doneNavigating()
+            }
+        })
+
+        adapter = CoinAdapter(
+            CoinAdapter.OnClickListener {
+                viewModel.selectCoin(it)
+            }
+        )
+
         binding.coinList.adapter = adapter
 
         return binding.root

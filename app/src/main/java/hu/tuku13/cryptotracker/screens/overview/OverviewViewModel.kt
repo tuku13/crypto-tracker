@@ -3,22 +3,28 @@ package hu.tuku13.cryptotracker.screens.overview
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
-import hu.tuku13.cryptotracker.database.CoinDao
 import hu.tuku13.cryptotracker.database.getDatabase
-import hu.tuku13.cryptotracker.network.CoinApi
-import hu.tuku13.cryptotracker.network.CoinApiResponse
+import hu.tuku13.cryptotracker.domain.Coin
 import hu.tuku13.cryptotracker.repository.CoinRepository
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.lang.Exception
 
 class OverviewViewModel(
     val application: Application
 )  : ViewModel(){
     private val coinRepository = CoinRepository(getDatabase(application))
     val coins = coinRepository.coins
+
+    private val _navigateToCoinDetails = MutableLiveData<Coin?>()
+    val navigateToCoinDetails: LiveData<Coin?>
+        get() = _navigateToCoinDetails
+
+    fun selectCoin(coin: Coin) {
+        _navigateToCoinDetails.value = coin
+    }
+
+    fun doneNavigating() {
+        _navigateToCoinDetails.value = null
+    }
 
     init {
         loadData()
@@ -34,18 +40,8 @@ class OverviewViewModel(
                 Log.d("NETWORK INFO", e.toString())
             }
         }
-//        CoinApi.retrofitService.getCoins(10).enqueue(
-//            object: Callback<String> {
-//                override fun onResponse(call: Call<String>, response: Response<String>) {
-//                    _response.value = response.body()
-//                    Log.d("Valasz", getResponse.value.toString())
-//                }
-//
-//                override fun onFailure(call: Call<String>, t: Throwable) {
-//                    _response.value = "Failure: " + t.message
-//                }
-//            })
     }
+
 
     class Factory(
         private val application: Application
