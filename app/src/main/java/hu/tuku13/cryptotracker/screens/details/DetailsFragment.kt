@@ -20,7 +20,8 @@ class DetailsFragment : Fragment() {
         val binding = FragmentDetailsBinding.inflate(layoutInflater)
         //binding.setLifecycleOwner(this)
 
-        val viewModelFactory = DetailsViewModel.Factory()
+        val selectedCoin = DetailsFragmentArgs.fromBundle(requireArguments()).coin
+        val viewModelFactory = DetailsViewModel.Factory(selectedCoin)
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(DetailsViewModel::class.java)
         binding.viewModel = viewModel
