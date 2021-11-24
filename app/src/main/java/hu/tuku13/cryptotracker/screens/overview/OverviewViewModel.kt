@@ -9,8 +9,8 @@ import hu.tuku13.cryptotracker.repository.CoinRepository
 import kotlinx.coroutines.launch
 
 class OverviewViewModel(
-    val application: Application
-)  : ViewModel(){
+    private val application: Application
+) : ViewModel(){
     private val coinRepository = CoinRepository(getDatabase(application))
     val coins = coinRepository.coins
 
@@ -33,11 +33,9 @@ class OverviewViewModel(
     private fun loadData() {
         viewModelScope.launch {
             try {
-                coinRepository.loadCoins(200)
-                Log.d("NETWORK INFO", "Successful")
+                coinRepository.loadCoins(210)
             } catch (e: Exception) {
-                Log.d("NETWORK INFO", "Failure")
-                Log.d("NETWORK INFO", e.toString())
+                Log.d("NETWORK INFO", "Overview VM $e")
             }
         }
     }

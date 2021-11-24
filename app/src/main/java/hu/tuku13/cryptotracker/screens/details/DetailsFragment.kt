@@ -25,7 +25,9 @@ class DetailsFragment : Fragment() {
 
         val selectedCoin = DetailsFragmentArgs.fromBundle(requireArguments()).coin
 
-        val viewModelFactory = DetailsViewModel.Factory(selectedCoin)
+        val application = requireNotNull(this.activity).application
+
+        val viewModelFactory = DetailsViewModel.Factory(application, selectedCoin)
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(DetailsViewModel::class.java)
         binding.viewModel = viewModel
@@ -98,6 +100,8 @@ class DetailsFragment : Fragment() {
         }
         binding.tvVolumeChange.setTextColor(colorVolumeChange24h)
         binding.tvVolumeChange.text = volumeChangeText
+
+        //TODO imgFavourites csillag kepet es tooltipet cserélni állípottól függően
 
         return binding.root
     }

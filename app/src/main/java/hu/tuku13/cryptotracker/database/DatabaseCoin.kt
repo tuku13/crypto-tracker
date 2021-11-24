@@ -20,7 +20,8 @@ data class DatabaseCoin(
     val percentChange24h : Double,
     val percentChange7d: Double,
     val volumeChange24h: Double,
-    val volume24h: Double
+    val volume24h: Double,
+    val isFavourite: Boolean
 ) {
     fun asDomainModel(): Coin {
         return Coin(
@@ -37,7 +38,8 @@ data class DatabaseCoin(
             percentChange24h = percentChange24h,
             percentChange7d = percentChange7d,
             volumeChange24h = volumeChange24h,
-            volume24h = volume24h
+            volume24h = volume24h,
+            isFavourite = isFavourite
         )
     }
 }

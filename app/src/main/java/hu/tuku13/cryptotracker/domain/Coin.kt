@@ -1,7 +1,6 @@
 package hu.tuku13.cryptotracker.domain
 
 import android.os.Parcelable
-import androidx.room.Database
 import hu.tuku13.cryptotracker.database.DatabaseCoin
 import kotlinx.android.parcel.Parcelize
 
@@ -20,7 +19,8 @@ data class Coin(
     val percentChange24h : Double,
     val percentChange7d: Double,
     val volumeChange24h: Double,
-    val volume24h: Double) : Parcelable {
+    val volume24h: Double,
+    val isFavourite: Boolean) : Parcelable {
 
     fun asDatabaseModel() : DatabaseCoin {
         return DatabaseCoin(
@@ -37,7 +37,8 @@ data class Coin(
             percentChange24h = percentChange24h,
             percentChange7d = percentChange7d,
             volumeChange24h = volumeChange24h,
-            volume24h = volume24h
+            volume24h = volume24h,
+            isFavourite = isFavourite
         )
     }
 }
@@ -62,7 +63,8 @@ val testBTC = Coin(
     7.89,
     12.345,
     546546354.43,
-    32432432432423424.04
+    32432432432423424.04,
+    true
 )
 
 val testETH = Coin(
@@ -79,5 +81,6 @@ val testETH = Coin(
     8.69,
     11.345,
     583444.478,
-    4665466534645.323
+    4665466534645.323,
+    false
 )
