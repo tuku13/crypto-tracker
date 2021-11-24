@@ -1,26 +1,41 @@
 package hu.tuku13.cryptotracker.screens.details
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.*
 import hu.tuku13.cryptotracker.database.getDatabase
 import hu.tuku13.cryptotracker.domain.Coin
 import hu.tuku13.cryptotracker.repository.CoinRepository
+import kotlinx.coroutines.launch
+import kotlin.concurrent.thread
 
 class DetailsViewModel(
     private val application: Application,
     val coin: Coin
 ) : ViewModel(){
+    private val coinRepository = CoinRepository(getDatabase(application))
 
     private val _selectedCoin = MutableLiveData<Coin>()
-    val selectedCoin: LiveData<Coin>
-        get() = _selectedCoin
 
     init {
         _selectedCoin.value = coin
+    }
+
+    val isCoinFavourite = Transformations.map(_selectedCoin) {
+        it.isFavourite
+    }
+
+    @SuppressLint("NullSafeMutableLiveData")
+    fun toggleFavourite() {
+        val observedCoin = _selectedCoin.value
+        if(observedCoin != null) {
+            observedCoin.isFavourite = !observedCoin.isFavourite
+            _selectedCoin.value = observedCoin
+            thread {
+                coinRepository.updateCoin(observedCoin)
+            }
+        }
     }
 
     class Factory(

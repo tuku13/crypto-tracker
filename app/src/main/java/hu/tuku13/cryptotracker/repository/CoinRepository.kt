@@ -1,8 +1,10 @@
 package hu.tuku13.cryptotracker.repository
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import hu.tuku13.cryptotracker.database.CoinDatabase
 import hu.tuku13.cryptotracker.database.DatabaseCoin
 import hu.tuku13.cryptotracker.database.asDomainModel
@@ -14,11 +16,12 @@ import kotlinx.coroutines.withContext
 import java.lang.Exception
 
 class CoinRepository(private val database: CoinDatabase) {
-    private val USE_INTERNET = true
+    private val USE_INTERNET = false
 
     private val _coins = MutableLiveData<List<Coin>>()
     val coins : LiveData<List<Coin>>
             get() = _coins
+
 
     private suspend fun downloadCoinsFromAPI(limit : Int = 15) {
         try {
@@ -79,6 +82,10 @@ class CoinRepository(private val database: CoinDatabase) {
             database.coinDao.insertOrReplaceCoin(downloadedCoin.asDatabaseModel())
             Log.d("SAFE insert", downloadedCoin.name)
         }
+    }
+
+    fun updateCoin(coin: Coin) {
+        database.coinDao.updateCoin(coin.asDatabaseModel())
     }
 
     private fun loadCoinsFromDatabase() {

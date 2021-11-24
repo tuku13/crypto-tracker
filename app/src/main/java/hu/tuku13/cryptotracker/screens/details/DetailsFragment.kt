@@ -1,16 +1,20 @@
 package hu.tuku13.cryptotracker.screens.details
 
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import hu.tuku13.cryptotracker.LogoSize
 import hu.tuku13.cryptotracker.R
 import hu.tuku13.cryptotracker.Util
 import hu.tuku13.cryptotracker.databinding.FragmentDetailsBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.text.DecimalFormat
 
 class DetailsFragment : Fragment() {
@@ -36,6 +40,10 @@ class DetailsFragment : Fragment() {
         Util.setImage(selectedCoin.id, imgCoinLogo, LogoSize.MEDIUM)
 
         // bind data
+        binding.tvName.text = selectedCoin.name
+        binding.tvSymbol.text = selectedCoin.symbol
+        binding.tvPlatform.text = selectedCoin.platform
+
         val priceText = requireContext().getString(R.string.coin_price, selectedCoin.price)
         binding.tvPrice.text = priceText
 
@@ -101,7 +109,25 @@ class DetailsFragment : Fragment() {
         binding.tvVolumeChange.setTextColor(colorVolumeChange24h)
         binding.tvVolumeChange.text = volumeChangeText
 
-        //TODO imgFavourites csillag kepet es tooltipet cserélni állípottól függően
+        binding.imgFavourite.setOnClickListener {
+            viewModel.toggleFavourite()
+        }
+
+        viewModel.isCoinFavourite.observe(viewLifecycleOwner, Observer {
+            if(it) {
+                binding.imgFavourite.setImageResource(R.drawable.ic_remove_from_favourites)
+                val tooltipText: CharSequence = "Remove from favourites"
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    binding.imgFavourite.tooltipText = tooltipText
+                }
+            } else {
+                binding.imgFavourite.setImageResource(R.drawable.ic_add_to_favourites)
+                val tooltipText: CharSequence = "Add to favourites"
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    binding.imgFavourite.tooltipText = tooltipText
+                }
+            }
+        })
 
         return binding.root
     }

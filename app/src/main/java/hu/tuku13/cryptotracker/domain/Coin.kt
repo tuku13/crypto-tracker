@@ -20,7 +20,7 @@ data class Coin(
     val percentChange7d: Double,
     val volumeChange24h: Double,
     val volume24h: Double,
-    val isFavourite: Boolean) : Parcelable {
+    var isFavourite: Boolean) : Parcelable {
 
     fun asDatabaseModel() : DatabaseCoin {
         return DatabaseCoin(
