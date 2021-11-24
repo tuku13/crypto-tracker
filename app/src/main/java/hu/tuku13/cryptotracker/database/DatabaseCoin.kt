@@ -19,7 +19,8 @@ data class DatabaseCoin(
     val percentChange1h: Double,
     val percentChange24h : Double,
     val percentChange7d: Double,
-    val volumeChange24h: Double
+    val volumeChange24h: Double,
+    val volume24h: Double
 ) {
     fun asDomainModel(): Coin {
         return Coin(
@@ -35,7 +36,8 @@ data class DatabaseCoin(
             percentChange1h = percentChange1h,
             percentChange24h = percentChange24h,
             percentChange7d = percentChange7d,
-            volumeChange24h = volumeChange24h
+            volumeChange24h = volumeChange24h,
+            volume24h = volume24h
         )
     }
 }

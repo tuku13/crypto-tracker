@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CryptoTracker</string>
+    <string name="app_name">Crypto Tracker</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="overview">Overview</string>
@@ -8,4 +8,17 @@
     <string name="details">Details</string>
     <string name="coin_price" formatted="true">$%1$.4f</string>
     <string name="change_percentage" formatted="true">%1$.1f%%</string>
+    <string name="change_percentage_details" formatted="true">%1$.2f%%</string>
+    <string name="volume_change_24h">Volume change 24h</string>
+    <string name="volume_24h">Volume 24h</string>
+    <string name="price_change_7d">Price Change 7d</string>
+    <string name="price_change_24h">Price Change 24h</string>
+    <string name="price_change_1h">Price Change 1h</string>
+    <string name="date_added">Date added</string>
+    <string name="platform">Platform</string>
+    <string name="market_rank">Market Rank</string>
+    <string name="max_supply">Max Supply</string>
+    <string name="market_cap">Market Cap</string>
+    <string name="price">Price</string>
+    <string name="market_rank_format" formatted="true">#%1$d</string>
 </resources>

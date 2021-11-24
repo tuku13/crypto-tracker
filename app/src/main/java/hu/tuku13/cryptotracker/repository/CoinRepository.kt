@@ -37,7 +37,8 @@ class CoinRepository(private val database: CoinDatabase) {
                     percentChange1h = it.quote.priceData.percent_change_1h,
                     percentChange24h = it.quote.priceData.percent_change_24h,
                     percentChange7d = it.quote.priceData.percent_change_7d,
-                    volumeChange24h = it.quote.priceData.volume_change_24h
+                    volumeChange24h = it.quote.priceData.volume_change_24h,
+                    volume24h = it.quote.priceData.volume_24h
                 ))
             }
             _coins.postValue(coinList)

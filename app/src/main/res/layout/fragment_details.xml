@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
@@ -7,60 +8,691 @@
             type="hu.tuku13.cryptotracker.screens.details.DetailsViewModel" />
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <ScrollView
+            android:layout_height="match_parent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="parent">
 
-            <ImageView
-                android:id="@+id/logo"
-                android:layout_marginStart="10dp"
-                android:src="@drawable/ic_portfolio"
-                android:layout_width="32dp"
-                android:layout_height="32dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1" >
-            </Space>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp">
 
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="wrap_content"
-                android:layout_height="64dp"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:layout_marginEnd="10dp"
-                android:text="@{viewModel.selectedCoin.name}"
-                tools:text="Bitcoin"/>
+                    <ImageView
+                        android:id="@+id/imgLogo"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginStart="20dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_overview" />
 
-        </LinearLayout>
+                    <TextView
+                        android:id="@+id/tvName"
+                        android:layout_width="240dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:maxLines="2"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toTopOf="@id/firstSectionHalfGuideline"
+                        app:layout_constraintStart_toEndOf="@id/imgLogo"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:text="@{viewModel.selectedCoin.name}"
+                        tools:text="Bitcoin" />
 
-        <TextView
-            android:id="@+id/price"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:textSize="20sp"
-            android:gravity="center"
-            tools:text="$43534534656"
-            />
+                    <TextView
+                        android:id="@+id/tvSymbol"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toTopOf="@id/firstSectionGuideLine"
+                        app:layout_constraintStart_toEndOf="@+id/imgLogo"
+                        app:layout_constraintTop_toBottomOf="@+id/firstSectionHalfGuideline"
+                        android:text="@{viewModel.selectedCoin.symbol}"
+                        tools:text="BTC" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/firstSectionHalfGuideline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_begin="50dp" />
 
-        </LinearLayout>
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/firstSectionGuideLine"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_begin="100dp" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Price -->
+                <LinearLayout
+                    android:id="@+id/priceContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:divider="?android:dividerHorizontal"
+                    android:orientation="vertical"
+                    android:showDividers="end"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/price" />
+
+                    <TextView
+                        android:id="@+id/tvPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="24sp"
+                        tools:text="$57 768.456345" />
+
+                </LinearLayout>
+
+                <!-- MarketCap-->
+                <LinearLayout
+                    android:id="@+id/marketCapContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:divider="?android:dividerHorizontal"
+                    android:orientation="vertical"
+                    android:showDividers="end"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/priceContainer">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/market_cap" />
+
+                    <TextView
+                        android:id="@+id/tvMarketCap"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="24sp"
+                        tools:text="$1 069 487 495 923" />
+
+                </LinearLayout>
+
+                <!-- Supply -->
+                <LinearLayout
+                    android:id="@+id/supplyContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:divider="?android:dividerHorizontal"
+                    android:orientation="vertical"
+                    android:showDividers="end"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/marketCapContainer">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/max_supply" />
+
+                    <TextView
+                        android:id="@+id/tvSupply"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="24sp"
+                        tools:text="21 000 000 BTC" />
+
+                </LinearLayout>
+
+                <!-- Rank -->
+                <LinearLayout
+                    android:id="@+id/rankContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:divider="?android:dividerHorizontal"
+                    android:orientation="vertical"
+                    android:showDividers="end"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/supplyContainer">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/market_rank" />
+
+                    <TextView
+                        android:id="@+id/tvRank"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="24sp"
+                        tools:text="#1" />
+
+                </LinearLayout>
+
+                <!-- Platform -->
+                <LinearLayout
+                    android:id="@+id/platformContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:divider="?android:dividerHorizontal"
+                    android:orientation="vertical"
+                    android:showDividers="end"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rankContainer">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/platform" />
+
+                    <TextView
+                        android:id="@+id/tvPlatform"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="24sp"
+                        android:text="@{viewModel.selectedCoin.platform}"
+                        tools:text="Bitcoin" />
+
+                </LinearLayout>
+
+                <!-- Date added -->
+                <LinearLayout
+                    android:id="@+id/dateContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:divider="?android:dividerHorizontal"
+                    android:orientation="vertical"
+                    android:showDividers="end"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/platformContainer">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/date_added" />
+
+                    <TextView
+                        android:id="@+id/tvDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="24sp"
+                        tools:text="2013.04.28" />
+
+                </LinearLayout>
+
+                <!-- Price change 1h -->
+                <LinearLayout
+                    android:id="@+id/change1hContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:divider="?android:dividerHorizontal"
+                    android:orientation="vertical"
+                    android:showDividers="end"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/dateContainer">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/price_change_1h" />
+
+                    <TextView
+                        android:id="@+id/tvChange1h"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="24sp"
+                        tools:text="-0.29%" />
+
+                </LinearLayout>
+
+                <!-- Price change 24h -->
+                <LinearLayout
+                    android:id="@+id/change24hContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:divider="?android:dividerHorizontal"
+                    android:orientation="vertical"
+                    android:showDividers="end"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/change1hContainer">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/price_change_24h" />
+
+                    <TextView
+                        android:id="@+id/tvChange24h"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="24sp"
+                        tools:text="-0.68%" />
+
+                </LinearLayout>
+
+                <!-- Price change 4d -->
+                <LinearLayout
+                    android:id="@+id/change7dContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:divider="?android:dividerHorizontal"
+                    android:orientation="vertical"
+                    android:showDividers="end"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/change24hContainer">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/price_change_7d" />
+
+                    <TextView
+                        android:id="@+id/tvChange7d"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/negative_change"
+                        android:textSize="24sp"
+                        tools:text="-6.39%" />
+
+                </LinearLayout>
+
+                <!-- Volume 24h -->
+                <LinearLayout
+                    android:id="@+id/volume24hContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:divider="?android:dividerHorizontal"
+                    android:orientation="vertical"
+                    android:showDividers="end"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/change7dContainer">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/volume_24h" />
+
+                    <TextView
+                        android:id="@+id/tvVolume24h"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="24sp"
+                        tools:text="34249954491.037052" />
+
+                </LinearLayout>
+
+                <!-- Volume change 24h -->
+                <LinearLayout
+                    android:id="@+id/volumeChange24hContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/volume24hContainer">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/volume_change_24h" />
+
+                    <TextView
+                        android:id="@+id/tvVolumeChange"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/negative_change"
+                        android:textSize="24sp"
+                        tools:text="-10.81%" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
 
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
+
+<!--<LinearLayout-->
+<!--android:id="@+id/priceContainer"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:layout_marginStart="20dp"-->
+<!--android:layout_marginTop="20dp"-->
+<!--android:layout_marginEnd="20dp"-->
+<!--android:divider="?android:dividerHorizontal"-->
+<!--android:orientation="vertical"-->
+<!--android:showDividers="end"-->
+<!--app:layout_constraintStart_toStartOf="parent"-->
+<!--app:layout_constraintTop_toBottomOf="parent">-->
+
+<!--<TextView-->
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:text="@string/price" />-->
+
+<!--<TextView-->
+<!--    android:id="@+id/tvPrice"-->
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:textSize="24sp"-->
+<!--    tools:text="$57 768.456345" />-->
+
+<!--</LinearLayout>-->
+
+<!--<LinearLayout-->
+<!--android:id="@+id/marketCapContainer"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:layout_marginStart="20dp"-->
+<!--android:layout_marginTop="20dp"-->
+<!--android:layout_marginEnd="20dp"-->
+<!--android:divider="?android:dividerHorizontal"-->
+<!--android:orientation="vertical"-->
+<!--android:showDividers="end"-->
+<!--app:layout_constraintStart_toStartOf="parent"-->
+<!--app:layout_constraintTop_toBottomOf="@id/priceContainer">-->
+
+<!--<TextView-->
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:text="@string/market_cap" />-->
+
+<!--<TextView-->
+<!--    android:id="@+id/tvMarketCap"-->
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:textSize="24sp"-->
+<!--    tools:text="$1 069 487 495 923" />-->
+
+<!--</LinearLayout>-->
+
+<!--<LinearLayout-->
+<!--android:id="@+id/supplyContainer"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:layout_marginStart="20dp"-->
+<!--android:layout_marginTop="20dp"-->
+<!--android:layout_marginEnd="20dp"-->
+<!--android:divider="?android:dividerHorizontal"-->
+<!--android:orientation="vertical"-->
+<!--android:showDividers="end"-->
+<!--app:layout_constraintStart_toStartOf="parent"-->
+<!--app:layout_constraintTop_toBottomOf="@id/marketCapContainer">-->
+
+<!--<TextView-->
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:text="@string/max_supply" />-->
+
+<!--<TextView-->
+<!--    android:id="@+id/tvSupply"-->
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:textSize="24sp"-->
+<!--    tools:text="21 000 000 BTC" />-->
+
+<!--</LinearLayout>-->
+
+<!--<LinearLayout-->
+<!--android:id="@+id/rankContainer"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:layout_marginStart="20dp"-->
+<!--android:layout_marginTop="20dp"-->
+<!--android:layout_marginEnd="20dp"-->
+<!--android:divider="?android:dividerHorizontal"-->
+<!--android:orientation="vertical"-->
+<!--android:showDividers="end"-->
+<!--app:layout_constraintStart_toStartOf="parent"-->
+<!--app:layout_constraintTop_toBottomOf="@id/supplyContainer">-->
+
+<!--<TextView-->
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:text="@string/market_rank" />-->
+
+<!--<TextView-->
+<!--    android:id="@+id/tvRank"-->
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:textSize="24sp"-->
+<!--    tools:text="# 1" />-->
+
+<!--</LinearLayout>-->
+
+<!--<LinearLayout-->
+<!--android:id="@+id/platformContainer"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:layout_marginStart="20dp"-->
+<!--android:layout_marginTop="20dp"-->
+<!--android:layout_marginEnd="20dp"-->
+<!--android:divider="?android:dividerHorizontal"-->
+<!--android:orientation="vertical"-->
+<!--android:showDividers="end"-->
+<!--app:layout_constraintStart_toStartOf="parent"-->
+<!--app:layout_constraintTop_toBottomOf="@id/rankContainer">-->
+
+<!--<TextView-->
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:text="@string/platform" />-->
+
+<!--<TextView-->
+<!--    android:id="@+id/tvPlatform"-->
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:textSize="24sp"-->
+<!--    tools:text="Bitcoin" />-->
+
+<!--</LinearLayout>-->
+
+<!--<LinearLayout-->
+<!--android:id="@+id/dateContainer"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:layout_marginStart="20dp"-->
+<!--android:layout_marginTop="20dp"-->
+<!--android:layout_marginEnd="20dp"-->
+<!--android:divider="?android:dividerHorizontal"-->
+<!--android:orientation="vertical"-->
+<!--android:showDividers="end"-->
+<!--app:layout_constraintStart_toStartOf="parent"-->
+<!--app:layout_constraintTop_toBottomOf="@id/platformContainer">-->
+
+<!--<TextView-->
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:text="@string/date_added" />-->
+
+<!--<TextView-->
+<!--    android:id="@+id/tvDate"-->
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:textSize="24sp"-->
+<!--    tools:text="2013.04.28" />-->
+
+<!--</LinearLayout>-->
+
+<!--<LinearLayout-->
+<!--android:id="@+id/change1hContainer"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:layout_marginStart="20dp"-->
+<!--android:layout_marginTop="20dp"-->
+<!--android:layout_marginEnd="20dp"-->
+<!--android:divider="?android:dividerHorizontal"-->
+<!--android:orientation="vertical"-->
+<!--android:showDividers="end"-->
+<!--app:layout_constraintStart_toStartOf="parent"-->
+<!--app:layout_constraintTop_toBottomOf="@id/dateContainer">-->
+
+<!--<TextView-->
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:text="@string/price_change_1h" />-->
+
+<!--<TextView-->
+<!--    android:id="@+id/tvChange1h"-->
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:textColor="@color/negative_change"-->
+<!--    android:textSize="24sp"-->
+<!--    tools:text="-0.29%" />-->
+
+<!--</LinearLayout>-->
+
+<!--<LinearLayout-->
+<!--android:id="@+id/change24hContainer"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:layout_marginStart="20dp"-->
+<!--android:layout_marginTop="20dp"-->
+<!--android:layout_marginEnd="20dp"-->
+<!--android:divider="?android:dividerHorizontal"-->
+<!--android:orientation="vertical"-->
+<!--android:showDividers="end"-->
+<!--app:layout_constraintStart_toStartOf="parent"-->
+<!--app:layout_constraintTop_toBottomOf="@id/change1hContainer">-->
+
+<!--<TextView-->
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:text="@string/price_change_24h" />-->
+
+<!--<TextView-->
+<!--    android:id="@+id/tvChange24h"-->
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:textColor="@color/negative_change"-->
+<!--    android:textSize="24sp"-->
+<!--    tools:text="-0.68%" />-->
+
+<!--</LinearLayout>-->
+
+<!--<LinearLayout-->
+<!--android:id="@+id/change7dContainer"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:layout_marginStart="20dp"-->
+<!--android:layout_marginTop="20dp"-->
+<!--android:layout_marginEnd="20dp"-->
+<!--android:divider="?android:dividerHorizontal"-->
+<!--android:orientation="vertical"-->
+<!--android:showDividers="end"-->
+<!--app:layout_constraintStart_toStartOf="parent"-->
+<!--app:layout_constraintTop_toBottomOf="@id/change24hContainer">-->
+
+<!--<TextView-->
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:text="@string/price_change_7d" />-->
+
+<!--<TextView-->
+<!--    android:id="@+id/tvChange7d"-->
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:textColor="@color/negative_change"-->
+<!--    android:textSize="24sp"-->
+<!--    tools:text="-6.39%" />-->
+
+<!--</LinearLayout>-->
+
+<!--<LinearLayout-->
+<!--android:id="@+id/volume24hContainer"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:layout_marginStart="20dp"-->
+<!--android:layout_marginTop="20dp"-->
+<!--android:layout_marginEnd="20dp"-->
+<!--android:divider="?android:dividerHorizontal"-->
+<!--android:orientation="vertical"-->
+<!--android:showDividers="end"-->
+<!--app:layout_constraintStart_toStartOf="parent"-->
+<!--app:layout_constraintTop_toBottomOf="@id/change7dContainer">-->
+
+<!--<TextView-->
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:text="@string/volume_24h" />-->
+
+<!--<TextView-->
+<!--    android:id="@+id/tvVolume24h"-->
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:textSize="24sp"-->
+<!--    tools:text="34249954491.037052" />-->
+
+<!--</LinearLayout>-->
+
+<!--<LinearLayout-->
+<!--android:id="@+id/volumeChange24hContainer"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:layout_marginStart="20dp"-->
+<!--android:layout_marginTop="20dp"-->
+<!--android:layout_marginEnd="20dp"-->
+<!--android:divider="?android:dividerHorizontal"-->
+<!--android:orientation="vertical"-->
+<!--android:showDividers="end"-->
+<!--app:layout_constraintStart_toStartOf="parent"-->
+<!--app:layout_constraintTop_toBottomOf="@id/volume24hContainer">-->
+
+<!--<TextView-->
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:text="@string/volume_change_24h" />-->
+
+<!--<TextView-->
+<!--    android:id="@+id/tvVolumeChange"-->
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:textColor="@color/negative_change"-->
+<!--    android:textSize="24sp"-->
+<!--    tools:text="-10.81" />-->
+
+<!--</LinearLayout>-->

@@ -19,7 +19,8 @@ data class Coin(
     val percentChange1h: Double,
     val percentChange24h : Double,
     val percentChange7d: Double,
-    val volumeChange24h: Double) : Parcelable {
+    val volumeChange24h: Double,
+    val volume24h: Double) : Parcelable {
 
     fun asDatabaseModel() : DatabaseCoin {
         return DatabaseCoin(
@@ -35,7 +36,8 @@ data class Coin(
             percentChange1h = percentChange1h,
             percentChange24h = percentChange24h,
             percentChange7d = percentChange7d,
-            volumeChange24h = volumeChange24h
+            volumeChange24h = volumeChange24h,
+            volume24h = volume24h
         )
     }
 }
@@ -59,7 +61,8 @@ val testBTC = Coin(
     1.2,
     7.89,
     12.345,
-    546546354.43
+    546546354.43,
+    32432432432423424.04
 )
 
 val testETH = Coin(
@@ -75,5 +78,6 @@ val testETH = Coin(
     1.5,
     8.69,
     11.345,
-    583444.478
+    583444.478,
+    4665466534645.323
 )
