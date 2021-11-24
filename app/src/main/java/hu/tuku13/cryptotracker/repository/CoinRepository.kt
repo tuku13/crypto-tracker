@@ -22,6 +22,9 @@ class CoinRepository(private val database: CoinDatabase) {
     val coins : LiveData<List<Coin>>
             get() = _coins
 
+    private val _favouriteCoins = MutableLiveData<List<Coin>>()
+    val favouriteCoins : LiveData<List<Coin>>
+        get() = _favouriteCoins
 
     private suspend fun downloadCoinsFromAPI(limit : Int = 15) {
         try {
@@ -86,12 +89,19 @@ class CoinRepository(private val database: CoinDatabase) {
 
     fun updateCoin(coin: Coin) {
         database.coinDao.updateCoin(coin.asDatabaseModel())
+        loadFavouriteCoins()
     }
 
     private fun loadCoinsFromDatabase() {
         val databaseCoinList = database.coinDao.getCoins()
         val coinList = databaseCoinList.asDomainModel()
         _coins.postValue(coinList)
+    }
+
+    fun loadFavouriteCoins() {
+        val databaseFavouriteCoinList = database.coinDao.getFavouriteCoins()
+        val favouriteCoinList = databaseFavouriteCoinList.asDomainModel()
+        _favouriteCoins.postValue(favouriteCoinList)
     }
 
     suspend fun loadCoins(limit : Int = 15) {

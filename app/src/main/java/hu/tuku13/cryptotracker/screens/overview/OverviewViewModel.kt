@@ -6,13 +6,14 @@ import androidx.lifecycle.*
 import hu.tuku13.cryptotracker.database.getDatabase
 import hu.tuku13.cryptotracker.domain.Coin
 import hu.tuku13.cryptotracker.repository.CoinRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class OverviewViewModel(
     private val application: Application
 ) : ViewModel(){
     private val coinRepository = CoinRepository(getDatabase(application))
-    val coins = coinRepository.coins
+    val coins = coinRepository.coins//TODO coins
 
     private val _navigateToCoinDetails = MutableLiveData<Coin?>()
     val navigateToCoinDetails: LiveData<Coin?>
@@ -31,7 +32,7 @@ class OverviewViewModel(
     }
 
     private fun loadData() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 coinRepository.loadCoins(210)
             } catch (e: Exception) {

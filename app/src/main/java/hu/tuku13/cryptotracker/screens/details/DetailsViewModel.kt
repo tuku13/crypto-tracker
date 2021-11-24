@@ -7,6 +7,7 @@ import androidx.lifecycle.*
 import hu.tuku13.cryptotracker.database.getDatabase
 import hu.tuku13.cryptotracker.domain.Coin
 import hu.tuku13.cryptotracker.repository.CoinRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlin.concurrent.thread
 
@@ -32,7 +33,7 @@ class DetailsViewModel(
         if(observedCoin != null) {
             observedCoin.isFavourite = !observedCoin.isFavourite
             _selectedCoin.value = observedCoin
-            thread {
+            viewModelScope.launch(Dispatchers.IO) {
                 coinRepository.updateCoin(observedCoin)
             }
         }

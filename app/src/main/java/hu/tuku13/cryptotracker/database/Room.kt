@@ -11,6 +11,9 @@ interface CoinDao {
     @Query("SELECT * FROM coin WHERE id = :id")
     fun getCoinById(id: Int): DatabaseCoin
 
+    @Query("SELECT * FROM coin WHERE isFavourite")
+    fun getFavouriteCoins(): List<DatabaseCoin>
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertCoinsWithoutReplace(coins: List<DatabaseCoin>)
 
