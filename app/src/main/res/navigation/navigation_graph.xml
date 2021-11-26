@@ -30,11 +30,7 @@
         android:id="@+id/portfolioFragment"
         android:name="hu.tuku13.cryptotracker.screens.portfolio.PortfolioFragment"
         android:label="fragment_portfolio"
-        tools:layout="@layout/fragment_portfolio" >
-        <action
-            android:id="@+id/action_portfolioFragment_to_addToPortfolioFragment"
-            app:destination="@id/addToPortfolioFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_portfolio" />
     <fragment
         android:id="@+id/detailsFragment"
         android:name="hu.tuku13.cryptotracker.screens.details.DetailsFragment"
@@ -49,14 +45,17 @@
         <action
             android:id="@+id/action_detailsFragment_to_favouritesFragment"
             app:destination="@id/favouritesFragment" />
+        <action
+            android:id="@+id/action_detailsFragment_to_addToPortfolioFragment"
+            app:destination="@id/addToPortfolioFragment" />
     </fragment>
     <fragment
         android:id="@+id/addToPortfolioFragment"
-        android:name="hu.tuku13.cryptotracker.AddToPortfolioFragment"
+        android:name="hu.tuku13.cryptotracker.screens.add_to_portfolio.AddToPortfolioFragment"
         android:label="fragment_add_to_portfolio"
         tools:layout="@layout/fragment_add_to_portfolio" >
-        <action
-            android:id="@+id/action_addToPortfolioFragment_to_portfolioFragment"
-            app:destination="@id/portfolioFragment" />
+        <argument
+            android:name="coin"
+            app:argType="hu.tuku13.cryptotracker.domain.Coin" />
     </fragment>
 </navigation>

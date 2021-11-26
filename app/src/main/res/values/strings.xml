@@ -22,4 +22,7 @@
     <string name="price">Price</string>
     <string name="market_rank_format" formatted="true">#%1$d</string>
     <string name="your_favourite_coin_list_is_empty">Your favourite coin list is empty :(</string>
+    <string name="price_in_usd">Price in USD</string>
+    <string name="amount">Amount</string>
+    <string name="add">Add</string>
 </resources>

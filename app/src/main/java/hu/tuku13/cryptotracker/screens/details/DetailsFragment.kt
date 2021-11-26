@@ -9,26 +9,27 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import hu.tuku13.cryptotracker.LogoSize
 import hu.tuku13.cryptotracker.R
 import hu.tuku13.cryptotracker.Util
 import hu.tuku13.cryptotracker.databinding.FragmentDetailsBinding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import hu.tuku13.cryptotracker.domain.Coin
+import hu.tuku13.cryptotracker.screens.overview.OverviewFragmentDirections
 import java.text.DecimalFormat
 
 class DetailsFragment : Fragment() {
+    private lateinit var binding: FragmentDetailsBinding
     private lateinit var viewModel: DetailsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentDetailsBinding.inflate(layoutInflater)
+        binding = FragmentDetailsBinding.inflate(layoutInflater)
         //binding.setLifecycleOwner(this)
 
         val selectedCoin = DetailsFragmentArgs.fromBundle(requireArguments()).coin
-
         val application = requireNotNull(this.activity).application
 
         val viewModelFactory = DetailsViewModel.Factory(application, selectedCoin)
@@ -36,6 +37,12 @@ class DetailsFragment : Fragment() {
             .get(DetailsViewModel::class.java)
         binding.viewModel = viewModel
 
+        bind(selectedCoin)
+
+        return binding.root
+    }
+
+    private fun bind(selectedCoin: Coin) {
         val imgCoinLogo = binding.imgLogo
         Util.setImage(selectedCoin.id, imgCoinLogo, LogoSize.MEDIUM)
 
@@ -129,6 +136,13 @@ class DetailsFragment : Fragment() {
             }
         })
 
-        return binding.root
+        viewModel.navigateAddToPortfolio.observe(viewLifecycleOwner, Observer {
+            if(it != null) {
+                this.findNavController().navigate(
+                    DetailsFragmentDirections.actionDetailsFragmentToAddToPortfolioFragment(it)
+                )
+                viewModel.doneNavigating()
+            }
+        })
     }
 }

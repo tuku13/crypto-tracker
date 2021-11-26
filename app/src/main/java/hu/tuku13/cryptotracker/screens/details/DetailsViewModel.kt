@@ -27,6 +27,18 @@ class DetailsViewModel(
         it.isFavourite
     }
 
+    private val _navigateAddToPortfolio = MutableLiveData<Coin?>()
+    val navigateAddToPortfolio : LiveData<Coin?>
+        get() = _navigateAddToPortfolio
+
+    fun addToPortfolio() {
+        _navigateAddToPortfolio.value = _selectedCoin.value
+    }
+
+    fun doneNavigating() {
+        _navigateAddToPortfolio.value = null
+    }
+
     @SuppressLint("NullSafeMutableLiveData")
     fun toggleFavourite() {
         val observedCoin = _selectedCoin.value

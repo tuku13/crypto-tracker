@@ -14,6 +14,14 @@ interface CoinDao {
     @Query("SELECT * FROM coin WHERE isFavourite")
     fun getFavouriteCoins(): List<DatabaseCoin>
 
+    @Query("SELECT * FROM portfolio_record")
+    fun getPortfolioRecords(): List<DatabasePortfolioRecord>
+
+    @Transaction
+    @Query("SELECT * FROM coin WHERE id = :coinId")
+    fun getCoinAndPortfolioRecordWithCoinId(coinId: Int):
+            List<DatabaseCoinWithPortfolioRecord>
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertCoinsWithoutReplace(coins: List<DatabaseCoin>)
 
@@ -23,6 +31,9 @@ interface CoinDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertOrReplaceCoin(coin: DatabaseCoin)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertPortfolioRecord(record: DatabasePortfolioRecord)
+
     @Update
     fun updateCoin(coin: DatabaseCoin)
 
@@ -30,7 +41,7 @@ interface CoinDao {
     fun removeCoin(coin: DatabaseCoin)
 }
 
-@Database(entities = [DatabaseCoin::class], version = 1)
+@Database(entities = [DatabaseCoin::class, DatabasePortfolioRecord::class], version = 1)
 abstract class CoinDatabase : RoomDatabase() {
     abstract val coinDao: CoinDao
 }

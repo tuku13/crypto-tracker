@@ -377,7 +377,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
                     android:orientation="vertical"
+                    android:divider="?android:dividerHorizontal"
+                    android:showDividers="end"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/volume24hContainer">
 
@@ -395,6 +398,14 @@
                         tools:text="-10.81%" />
 
                 </LinearLayout>
+
+                <Button
+                    android:layout_marginTop="14dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:onClick="@{() -> viewModel.addToPortfolio()}"
+                    android:text="Add to portfolio"/>
 
             </LinearLayout>
 

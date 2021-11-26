@@ -60,7 +60,6 @@ class CoinAdapter(private val onClickListener: OnClickListener): RecyclerView.Ad
         Util.setImage(item.id, holder.coinLogo)
         holder.parentLayout.setOnClickListener{
             onClickListener.onClick(item)
-            Toast.makeText(parentContext, "Clicked on ${item.name}", Toast.LENGTH_SHORT).show()
         }
     }
 
