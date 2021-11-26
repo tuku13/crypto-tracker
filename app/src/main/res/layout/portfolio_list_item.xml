@@ -17,7 +17,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_add_to_favourites" />
+        tools:src="@drawable/ic_coin_placeholder" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -135,6 +135,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:src="@drawable/ic_add_to_favourites" />
+        android:src="@drawable/ic_delete"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

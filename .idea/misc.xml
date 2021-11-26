@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/AndroidStudioProjects/CryptoTracker/app/src/main/res/drawable/ic_add_to_favourites.xml" value="0.28541666666666665" />
+        <entry key="..\:/AndroidStudioProjects/CryptoTracker/app/src/main/res/drawable/ic_delete.xml" value="0.2953125" />
+        <entry key="..\:/AndroidStudioProjects/CryptoTracker/app/src/main/res/drawable/ic_delete2.xml" value="0.2953125" />
         <entry key="..\:/AndroidStudioProjects/CryptoTracker/app/src/main/res/drawable/ic_plus_icon.xml" value="0.29322916666666665" />
         <entry key="..\:/AndroidStudioProjects/CryptoTracker/app/src/main/res/drawable/ic_remove_from_favourites.xml" value="0.28541666666666665" />
         <entry key="..\:/AndroidStudioProjects/CryptoTracker/app/src/main/res/layout-v26/coin_list_item.xml" value="0.24114583333333334" />
