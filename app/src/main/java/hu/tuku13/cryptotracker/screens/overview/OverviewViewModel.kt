@@ -13,7 +13,7 @@ class OverviewViewModel(
     private val application: Application
 ) : ViewModel(){
     private val coinRepository = CoinRepository(getDatabase(application))
-    val coins = coinRepository.coins//TODO coins
+    val coins = coinRepository.coins
 
     private val _navigateToCoinDetails = MutableLiveData<Coin?>()
     val navigateToCoinDetails: LiveData<Coin?>

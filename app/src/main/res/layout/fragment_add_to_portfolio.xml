@@ -3,7 +3,7 @@
     <data>
         <variable
             name="viewModel"
-            type="hu.tuku13.cryptotracker.screens.add_to_portfolio.AddToPortfolioViewModel" />
+            type="hu.tuku13.cryptotracker.screens.portfolio.add_to_portfolio.AddToPortfolioViewModel" />
     </data>
     
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

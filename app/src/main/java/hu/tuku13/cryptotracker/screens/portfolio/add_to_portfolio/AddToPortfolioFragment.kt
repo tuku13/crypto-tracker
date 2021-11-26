@@ -1,14 +1,15 @@
-package hu.tuku13.cryptotracker.screens.add_to_portfolio
+package hu.tuku13.cryptotracker.screens.portfolio.add_to_portfolio
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
+import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import hu.tuku13.cryptotracker.LogoSize
-import hu.tuku13.cryptotracker.R
 import hu.tuku13.cryptotracker.Util
 import hu.tuku13.cryptotracker.databinding.FragmentAddToPortfolioBinding
 import hu.tuku13.cryptotracker.domain.Coin
@@ -37,7 +38,18 @@ class AddToPortfolioFragment : Fragment() {
             val amount = binding.etAmount.text.toString().toDouble()
             val price = binding.etPrice.text.toString().toDouble()
             val date = binding.calendarView.date
+            viewModel.addToPortfolio(coin, amount, price, date)
         }
+
+        viewModel.addedToPortfolio.observe(viewLifecycleOwner, Observer {
+            if(it == true) {
+                Snackbar.make(binding.btnAdd, "Added", Snackbar.LENGTH_SHORT).show()
+                viewModel.addToPortfolioCompleted()
+                findNavController().navigate(AddToPortfolioFragmentDirections
+                    .actionAddToPortfolioFragmentToPortfolioFragment()
+                )
+            }
+        })
 
         return binding.root
     }
@@ -46,6 +58,7 @@ class AddToPortfolioFragment : Fragment() {
         val imgCoinLogo = binding.imgLogo
         Util.setImage(coin.id, imgCoinLogo, LogoSize.SMALL)
         binding.tvName.text = coin.name
+
     }
 
 }

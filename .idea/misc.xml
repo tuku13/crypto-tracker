@@ -13,7 +13,8 @@
         <entry key="..\:/AndroidStudioProjects/CryptoTracker/app/src/main/res/layout/fragment_details.xml" value="0.25" />
         <entry key="..\:/AndroidStudioProjects/CryptoTracker/app/src/main/res/layout/fragment_favourites.xml" value="0.1" />
         <entry key="..\:/AndroidStudioProjects/CryptoTracker/app/src/main/res/layout/fragment_overview.xml" value="0.33" />
-        <entry key="..\:/AndroidStudioProjects/CryptoTracker/app/src/main/res/layout/fragment_portfolio.xml" value="0.1" />
+        <entry key="..\:/AndroidStudioProjects/CryptoTracker/app/src/main/res/layout/fragment_portfolio.xml" value="0.33" />
+        <entry key="..\:/AndroidStudioProjects/CryptoTracker/app/src/main/res/layout/fragment_portfolio_buy.xml" value="0.371875" />
         <entry key="..\:/AndroidStudioProjects/CryptoTracker/app/src/main/res/layout/new_portfolio_item.xml" value="0.33" />
         <entry key="..\:/AndroidStudioProjects/CryptoTracker/app/src/main/res/layout/overview_list_item.xml" value="0.33" />
         <entry key="..\:/AndroidStudioProjects/CryptoTracker/app/src/main/res/menu/bottom_menu.xml" value="0.33" />

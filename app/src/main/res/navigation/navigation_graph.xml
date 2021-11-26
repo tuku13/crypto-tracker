@@ -51,11 +51,14 @@
     </fragment>
     <fragment
         android:id="@+id/addToPortfolioFragment"
-        android:name="hu.tuku13.cryptotracker.screens.add_to_portfolio.AddToPortfolioFragment"
+        android:name="hu.tuku13.cryptotracker.screens.portfolio.add_to_portfolio.AddToPortfolioFragment"
         android:label="fragment_add_to_portfolio"
         tools:layout="@layout/fragment_add_to_portfolio" >
         <argument
             android:name="coin"
             app:argType="hu.tuku13.cryptotracker.domain.Coin" />
+        <action
+            android:id="@+id/action_addToPortfolioFragment_to_portfolioFragment"
+            app:destination="@id/portfolioFragment" />
     </fragment>
 </navigation>

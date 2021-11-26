@@ -9,6 +9,7 @@ import hu.tuku13.cryptotracker.database.CoinDatabase
 import hu.tuku13.cryptotracker.database.DatabaseCoin
 import hu.tuku13.cryptotracker.database.asDomainModel
 import hu.tuku13.cryptotracker.domain.Coin
+import hu.tuku13.cryptotracker.domain.PortfolioRecord
 import hu.tuku13.cryptotracker.domain.asDatabaseModel
 import hu.tuku13.cryptotracker.network.CoinApi
 import kotlinx.coroutines.Dispatchers
@@ -25,6 +26,10 @@ class CoinRepository(private val database: CoinDatabase) {
     private val _favouriteCoins = MutableLiveData<List<Coin>>()
     val favouriteCoins : LiveData<List<Coin>>
         get() = _favouriteCoins
+
+    private val _portfolioRecords = MutableLiveData<List<PortfolioRecord>>()
+    val portfolioRecords : LiveData<List<PortfolioRecord>>
+        get() = _portfolioRecords
 
     private suspend fun downloadCoinsFromAPI(limit : Int = 15) {
         try {
@@ -85,6 +90,16 @@ class CoinRepository(private val database: CoinDatabase) {
             database.coinDao.insertOrReplaceCoin(downloadedCoin.asDatabaseModel())
             Log.d("SAFE insert", downloadedCoin.name)
         }
+    }
+
+    suspend fun insertToPortfolio(record: PortfolioRecord) {
+        database.coinDao.insertPortfolioRecord(record.asDatabaseModel())
+    }
+
+    suspend fun loadPortfolio() {
+        val databasePortfolio = database.coinDao.getPortfolioRecords()
+        val converted = databasePortfolio.asDomainModel()
+        _portfolioRecords.postValue(converted)
     }
 
     fun updateCoin(coin: Coin) {
