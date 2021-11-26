@@ -40,8 +40,8 @@ class PortfolioFragment : Fragment() {
         val viewPager = view.findViewById<ViewPager2>(R.id.viewPager)
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = when (position) {
-                0 -> "Buy"
-                1 -> "Sell"
+                0 -> "Transactions"
+                1 -> "Info"
                 else -> "Info"
             }
         }.attach()

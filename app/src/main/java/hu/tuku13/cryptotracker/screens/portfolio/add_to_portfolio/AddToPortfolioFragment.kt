@@ -38,7 +38,8 @@ class AddToPortfolioFragment : Fragment() {
             val amount = binding.etAmount.text.toString().toDouble()
             val price = binding.etPrice.text.toString().toDouble()
             val date = binding.calendarView.date
-            viewModel.addToPortfolio(coin, amount, price, date)
+            val isBuyTransaction = binding.switchBuyOrSell.isActivated
+            viewModel.addToPortfolio(coin, amount, price, date, isBuyTransaction)
         }
 
         viewModel.addedToPortfolio.observe(viewLifecycleOwner, Observer {

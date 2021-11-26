@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.*
 import hu.tuku13.cryptotracker.database.getDatabase
 import hu.tuku13.cryptotracker.domain.Coin
-import hu.tuku13.cryptotracker.domain.PortfolioRecord
+import hu.tuku13.cryptotracker.domain.PortfolioTransaction
 import hu.tuku13.cryptotracker.repository.CoinRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -23,13 +23,14 @@ class AddToPortfolioViewModel(
         _addedToPortfolio.value = false
     }
 
-    fun addToPortfolio(coin: Coin, amount: Double, price: Double, date: Long) {
-        val record = PortfolioRecord(
+    fun addToPortfolio(coin: Coin, amount: Double, price: Double, date: Long, isBuyTransaction: Boolean) {
+        val record = PortfolioTransaction(
             id = 0,
             coinId = coin.id,
             amount = amount,
             price = price,
-            date = date
+            date = date,
+            isBuyTransaction
         )
 
         viewModelScope.launch(Dispatchers.IO) {

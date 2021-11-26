@@ -9,7 +9,7 @@
         <entry key="..\:/AndroidStudioProjects/CryptoTracker/app/src/main/res/layout-v26/coin_list_item.xml" value="0.24114583333333334" />
         <entry key="..\:/AndroidStudioProjects/CryptoTracker/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/AndroidStudioProjects/CryptoTracker/app/src/main/res/layout/coin_list_item.xml" value="0.33" />
-        <entry key="..\:/AndroidStudioProjects/CryptoTracker/app/src/main/res/layout/fragment_add_to_portfolio.xml" value="0.24157303370786518" />
+        <entry key="..\:/AndroidStudioProjects/CryptoTracker/app/src/main/res/layout/fragment_add_to_portfolio.xml" value="0.21" />
         <entry key="..\:/AndroidStudioProjects/CryptoTracker/app/src/main/res/layout/fragment_details.xml" value="0.25" />
         <entry key="..\:/AndroidStudioProjects/CryptoTracker/app/src/main/res/layout/fragment_favourites.xml" value="0.1" />
         <entry key="..\:/AndroidStudioProjects/CryptoTracker/app/src/main/res/layout/fragment_overview.xml" value="0.33" />
@@ -17,6 +17,7 @@
         <entry key="..\:/AndroidStudioProjects/CryptoTracker/app/src/main/res/layout/fragment_portfolio_buy.xml" value="0.371875" />
         <entry key="..\:/AndroidStudioProjects/CryptoTracker/app/src/main/res/layout/new_portfolio_item.xml" value="0.33" />
         <entry key="..\:/AndroidStudioProjects/CryptoTracker/app/src/main/res/layout/overview_list_item.xml" value="0.33" />
+        <entry key="..\:/AndroidStudioProjects/CryptoTracker/app/src/main/res/layout/portfolio_list_item.xml" value="0.33" />
         <entry key="..\:/AndroidStudioProjects/CryptoTracker/app/src/main/res/menu/bottom_menu.xml" value="0.33" />
       </map>
     </option>

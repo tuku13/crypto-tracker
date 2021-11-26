@@ -1,23 +1,20 @@
 package hu.tuku13.cryptotracker.repository
 
-import android.annotation.SuppressLint
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import hu.tuku13.cryptotracker.database.CoinDatabase
 import hu.tuku13.cryptotracker.database.DatabaseCoin
 import hu.tuku13.cryptotracker.database.asDomainModel
 import hu.tuku13.cryptotracker.domain.Coin
-import hu.tuku13.cryptotracker.domain.PortfolioRecord
-import hu.tuku13.cryptotracker.domain.asDatabaseModel
+import hu.tuku13.cryptotracker.domain.PortfolioTransaction
 import hu.tuku13.cryptotracker.network.CoinApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.lang.Exception
 
 class CoinRepository(private val database: CoinDatabase) {
-    private val USE_INTERNET = false
+    private val USE_INTERNET = true
 
     private val _coins = MutableLiveData<List<Coin>>()
     val coins : LiveData<List<Coin>>
@@ -27,9 +24,9 @@ class CoinRepository(private val database: CoinDatabase) {
     val favouriteCoins : LiveData<List<Coin>>
         get() = _favouriteCoins
 
-    private val _portfolioRecords = MutableLiveData<List<PortfolioRecord>>()
-    val portfolioRecords : LiveData<List<PortfolioRecord>>
-        get() = _portfolioRecords
+    private val _portfolioTransactions = MutableLiveData<List<PortfolioTransaction>>()
+    val portfolioRecords : LiveData<List<PortfolioTransaction>>
+        get() = _portfolioTransactions
 
     private suspend fun downloadCoinsFromAPI(limit : Int = 15) {
         try {
@@ -92,14 +89,14 @@ class CoinRepository(private val database: CoinDatabase) {
         }
     }
 
-    suspend fun insertToPortfolio(record: PortfolioRecord) {
-        database.coinDao.insertPortfolioRecord(record.asDatabaseModel())
+    suspend fun insertToPortfolio(transaction: PortfolioTransaction) {
+        database.coinDao.insertPortfolioTransaction(transaction.asDatabaseModel())
     }
 
     suspend fun loadPortfolio() {
-        val databasePortfolio = database.coinDao.getPortfolioRecords()
+        val databasePortfolio = database.coinDao.getPortfolioTransactions()
         val converted = databasePortfolio.asDomainModel()
-        _portfolioRecords.postValue(converted)
+        _portfolioTransactions.postValue(converted)
     }
 
     fun updateCoin(coin: Coin) {

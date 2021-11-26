@@ -4,11 +4,11 @@ import androidx.room.Embedded
 import androidx.room.Relation
 import hu.tuku13.cryptotracker.domain.Coin
 
-data class DatabaseCoinWithPortfolioRecord(
+data class DatabaseCoinWithPortfolioTransactions(
     @Embedded val coin: Coin,
     @Relation(
         parentColumn = "id",
         entityColumn = "coinId"
     )
-    val records: List<DatabasePortfolioRecord>
+    val transactions: List<DatabasePortfolioTransaction>
 )
