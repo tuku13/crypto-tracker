@@ -13,7 +13,7 @@ class AddToPortfolioViewModel(
     private val application: Application,
     val coin: Coin
 ) : ViewModel() {
-    private val coinRepository = CoinRepository(getDatabase(application))
+    private val coinRepository = CoinRepository(getDatabase(application), application)
 
     private val _addedToPortfolio = MutableLiveData<Boolean>()
     val addedToPortfolio : LiveData<Boolean>

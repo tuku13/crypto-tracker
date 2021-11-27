@@ -7,17 +7,16 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import hu.tuku13.cryptotracker.R
 import hu.tuku13.cryptotracker.Util
 import hu.tuku13.cryptotracker.domain.Coin
-import hu.tuku13.cryptotracker.domain.testBTC
-import hu.tuku13.cryptotracker.domain.testETH
 import hu.tuku13.cryptotracker.screens.overview.OverviewViewModel
 
-class CoinAdapter(private val onClickListener: OnClickListener): RecyclerView.Adapter<CoinAdapter.ViewHolder>() {
+class CoinAdapter(
+    private val onClickListener: OnClickListener
+    ): RecyclerView.Adapter<CoinAdapter.ViewHolder>() {
     //listOf(testBTC, testETH, testETH, testBTC, testBTC, testBTC, testETH, testETH, testETH, testETH, testETH, testBTC)
     var coinsList : List<Coin> = emptyList()
         set(value) {
@@ -28,11 +27,10 @@ class CoinAdapter(private val onClickListener: OnClickListener): RecyclerView.Ad
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val view = layoutInflater.inflate(R.layout.coin_list_item,parent,false)
+        val view = layoutInflater.inflate(R.layout.coin_list_item, parent, false)
         parentContext = parent.context
-        val viewHolder = ViewHolder(view)
 
-        return viewHolder
+        return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

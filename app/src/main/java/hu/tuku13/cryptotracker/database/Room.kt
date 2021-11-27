@@ -37,6 +37,9 @@ interface CoinDao {
     @Update
     fun updateCoin(coin: DatabaseCoin)
 
+    @Delete
+    fun removeTransaction(transaction: DatabasePortfolioTransaction)
+
     @Delete()
     fun removeCoin(coin: DatabaseCoin)
 }
@@ -47,6 +50,7 @@ abstract class CoinDatabase : RoomDatabase() {
 }
 
 private lateinit var INSTANCE : CoinDatabase
+
 
 fun getDatabase(context: Context): CoinDatabase {
     synchronized(CoinDatabase::class.java) {

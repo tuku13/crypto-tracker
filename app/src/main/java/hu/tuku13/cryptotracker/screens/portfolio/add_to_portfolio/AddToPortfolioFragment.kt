@@ -1,6 +1,7 @@
 package hu.tuku13.cryptotracker.screens.portfolio.add_to_portfolio
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,10 +14,12 @@ import hu.tuku13.cryptotracker.LogoSize
 import hu.tuku13.cryptotracker.Util
 import hu.tuku13.cryptotracker.databinding.FragmentAddToPortfolioBinding
 import hu.tuku13.cryptotracker.domain.Coin
+import java.util.*
 
 class AddToPortfolioFragment : Fragment() {
     private lateinit var binding: FragmentAddToPortfolioBinding
     private lateinit var viewModel: AddToPortfolioViewModel
+    var date: Long = Calendar.getInstance().timeInMillis
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,11 +37,17 @@ class AddToPortfolioFragment : Fragment() {
 
         bind(coin)
 
+        binding.calendarView.setOnDateChangeListener { _, y, m, d ->
+            val calendar = Calendar.getInstance()
+            calendar.set(y, m, d)
+            date = calendar.timeInMillis
+        }
+
         binding.btnAdd.setOnClickListener {
             val amount = binding.etAmount.text.toString().toDouble()
             val price = binding.etPrice.text.toString().toDouble()
-            val date = binding.calendarView.date
-            val isBuyTransaction = binding.switchBuyOrSell.isActivated
+            val date = date
+            val isBuyTransaction = true//binding.switchBuyOrSell.isActivated
             viewModel.addToPortfolio(coin, amount, price, date, isBuyTransaction)
         }
 

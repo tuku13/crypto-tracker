@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 class OverviewViewModel(
     private val application: Application
 ) : ViewModel(){
-    private val coinRepository = CoinRepository(getDatabase(application))
+    private val coinRepository = CoinRepository(getDatabase(application), application)
     val coins = coinRepository.coins
 
     private val _navigateToCoinDetails = MutableLiveData<Coin?>()

@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 class FavouriteViewModel(
     private val application: Application
 ) : ViewModel() {
-    private val coinRepository = CoinRepository(getDatabase(application))
+    private val coinRepository = CoinRepository(getDatabase(application), application)
     val favouriteCoins = coinRepository.favouriteCoins
 
     val isEmpty = Transformations.map(favouriteCoins) {

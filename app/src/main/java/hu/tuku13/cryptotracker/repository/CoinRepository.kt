@@ -1,5 +1,7 @@
 package hu.tuku13.cryptotracker.repository
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,10 +15,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.lang.Exception
 
-class CoinRepository(private val database: CoinDatabase) {
-    private val USE_INTERNET = true
-
+class CoinRepository(private val database: CoinDatabase, context: Context) {
     private val _coins = MutableLiveData<List<Coin>>()
+    private val sharedPreferences = context.getSharedPreferences("Settings", Context.MODE_PRIVATE)
+    private val editor: SharedPreferences.Editor = sharedPreferences.edit()
     val coins : LiveData<List<Coin>>
             get() = _coins
 
@@ -25,7 +27,7 @@ class CoinRepository(private val database: CoinDatabase) {
         get() = _favouriteCoins
 
     private val _portfolioTransactions = MutableLiveData<List<PortfolioTransaction>>()
-    val portfolioRecords : LiveData<List<PortfolioTransaction>>
+    val portfolioTransactions : LiveData<List<PortfolioTransaction>>
         get() = _portfolioTransactions
 
     private suspend fun downloadCoinsFromAPI(limit : Int = 15) {
@@ -61,6 +63,31 @@ class CoinRepository(private val database: CoinDatabase) {
         }
     }
 
+    suspend fun deleteTransaction(transaction: PortfolioTransaction) {
+        withContext(Dispatchers.IO) {
+            database.coinDao.removeTransaction(transaction.asDatabaseModel())
+        }
+    }
+
+    private fun shouldRefreshCache(): Boolean {
+        val now = System.currentTimeMillis()
+        val lastUpdate = sharedPreferences.getLong("lastUpdate", 0)
+        val difference = now - lastUpdate
+
+//        Log.d("CACHE", "Now: $now")
+//        Log.d("CACHE", "Last: $lastUpdate")
+//        Log.d("CACHE", "Difference: $difference")
+        if(difference >= 3000000) {
+            editor.putLong("lastUpdate", now)
+            editor.apply()
+
+//            Log.d("CACHE", "REMOTE")
+            return true
+        }
+//        Log.d("CACHE", "LOCAL")
+        return false
+    }
+
     private fun safeInsertCoin(downloadedCoin:Coin) {
         val oldCoin = database.coinDao.getCoinById(downloadedCoin.id)
         if(oldCoin != null) {
@@ -82,10 +109,8 @@ class CoinRepository(private val database: CoinDatabase) {
                 isFavourite = oldCoin.isFavourite
             )
             database.coinDao.insertOrReplaceCoin(newCoin)
-            Log.d("SAFE update", newCoin.name)
         } else {
             database.coinDao.insertOrReplaceCoin(downloadedCoin.asDatabaseModel())
-            Log.d("SAFE insert", downloadedCoin.name)
         }
     }
 
@@ -118,7 +143,7 @@ class CoinRepository(private val database: CoinDatabase) {
 
     suspend fun loadCoins(limit : Int = 15) {
         withContext(Dispatchers.IO) {
-            if(USE_INTERNET) {
+            if(shouldRefreshCache()) {
                 downloadCoinsFromAPI(limit)
             }
             loadCoinsFromDatabase()

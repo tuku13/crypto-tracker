@@ -12,8 +12,8 @@ import kotlinx.coroutines.launch
 class PortfolioViewModel(
     private val application: Application
 ) : ViewModel() {
-    private val coinRepository = CoinRepository(getDatabase(application))
-    val portfolioRecords = coinRepository.portfolioRecords
+    private val coinRepository = CoinRepository(getDatabase(application), application)
+    val portfolioRecords = coinRepository.portfolioTransactions
 
     init {
         viewModelScope.launch(Dispatchers.IO){
