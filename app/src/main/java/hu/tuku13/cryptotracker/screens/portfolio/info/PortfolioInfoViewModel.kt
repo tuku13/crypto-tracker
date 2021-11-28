@@ -1,6 +1,7 @@
 package hu.tuku13.cryptotracker.screens.portfolio.info
 
 import android.app.Application
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -14,6 +15,11 @@ class PortfolioInfoViewModel(
     private val coinRepository: CoinRepository
 ): ViewModel() {
     val coinWithPortfolioTransactions = coinRepository.coinWithTransaction
+
+    private val _dataSetChanged = Transformations.map(coinWithPortfolioTransactions) {
+        true
+    }
+
 
     init {
         viewModelScope.launch(Dispatchers.IO){

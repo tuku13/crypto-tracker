@@ -8,13 +8,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import dagger.hilt.android.AndroidEntryPoint
 import hu.tuku13.cryptotracker.adapters.PortfolioAdapter
 import hu.tuku13.cryptotracker.databinding.FragmentPortfolioTransactionsBinding
+import hu.tuku13.cryptotracker.repository.CoinRepository
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class PortfolioTransactionsFragment : Fragment() {
     private lateinit var binding: FragmentPortfolioTransactionsBinding
     private lateinit var viewModel: PortfolioTransactionsViewModel
     private lateinit var adapter: PortfolioAdapter
+    @Inject
+    lateinit var repository: CoinRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,16 +29,13 @@ class PortfolioTransactionsFragment : Fragment() {
         binding = FragmentPortfolioTransactionsBinding.inflate(layoutInflater)
         binding.lifecycleOwner = this
 
-        val application = requireNotNull(this.activity).application
-
-        val viewModelFactory = PortfolioTransactionsViewModel.Factory(application)
+        val viewModelFactory = PortfolioTransactionsViewModel.Factory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(PortfolioTransactionsViewModel::class.java)
         binding.viewModel = viewModel
 
         adapter = PortfolioAdapter(
             PortfolioAdapter.OnClickListener {
-                Log.d("OnClick", it.id.toString())
                 viewModel.deleteTransaction(it)
             }
         )
@@ -51,7 +54,6 @@ class PortfolioTransactionsFragment : Fragment() {
         })
         viewModel.transactions.observe(viewLifecycleOwner, Observer {
             it?.apply {
-                Log.d("OBSERVER", "portfolio observer log")
                 adapter.portfolio = it
             }
         })

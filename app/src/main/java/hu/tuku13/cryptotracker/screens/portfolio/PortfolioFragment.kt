@@ -29,7 +29,6 @@ class PortfolioFragment : Fragment() {
     ): View? {
         binding = FragmentPortfolioBinding.inflate(layoutInflater)
         binding.lifecycleOwner = this
-        val application = requireNotNull(activity).application
 
         val viewModelFactory = PortfolioViewModel.Factory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory)

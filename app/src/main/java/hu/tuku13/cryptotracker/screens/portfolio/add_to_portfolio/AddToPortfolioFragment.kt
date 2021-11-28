@@ -35,7 +35,6 @@ class AddToPortfolioFragment : Fragment() {
         binding.lifecycleOwner = this
 
         val coin = AddToPortfolioFragmentArgs.fromBundle(requireArguments()).coin
-        val application = requireNotNull(this.activity).application
 
         val viewModelFactory = AddToPortfolioViewModel.Factory(repository, coin)
         viewModel = ViewModelProvider(this, viewModelFactory)
@@ -50,11 +49,14 @@ class AddToPortfolioFragment : Fragment() {
             date = calendar.timeInMillis
         }
 
+        binding.etPrice.setText("${coin.price}")
+        binding.etAmount.setText("1")
+
         binding.btnAdd.setOnClickListener {
             val amount = binding.etAmount.text.toString().toDouble()
             val price = binding.etPrice.text.toString().toDouble()
             val date = date
-            val isBuyTransaction = true//binding.switchBuyOrSell.isActivated
+            val isBuyTransaction = true
             viewModel.addToPortfolio(coin, amount, price, date, isBuyTransaction)
         }
 

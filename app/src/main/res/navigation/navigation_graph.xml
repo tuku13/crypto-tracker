@@ -59,6 +59,7 @@
             app:argType="hu.tuku13.cryptotracker.domain.Coin" />
         <action
             android:id="@+id/action_addToPortfolioFragment_to_portfolioFragment"
-            app:destination="@id/portfolioFragment" />
+            app:destination="@id/portfolioFragment"
+            app:popUpTo="@id/detailsFragment" />
     </fragment>
 </navigation>

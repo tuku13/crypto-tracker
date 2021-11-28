@@ -36,7 +36,6 @@ class DetailsFragment : Fragment() {
         binding.lifecycleOwner = this
 
         val selectedCoin = DetailsFragmentArgs.fromBundle(requireArguments()).coin
-        val application = requireNotNull(this.activity).application
 
         val viewModelFactory = DetailsViewModel.Factory(repository, selectedCoin)
         viewModel = ViewModelProvider(this, viewModelFactory)

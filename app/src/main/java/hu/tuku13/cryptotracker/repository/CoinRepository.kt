@@ -34,6 +34,10 @@ class CoinRepository(private val database: CoinDatabase, context: Context) {
     val coinWithTransaction : LiveData<HashMap<Coin, MutableList<PortfolioTransaction>>>
         get() = _coinWithTransaction
 
+    init {
+        Log.d("DI teszt", "én vagyoksz: $this")
+    }
+
     private suspend fun downloadCoinsFromAPI(limit : Int = 15) {
         try {
             val response = CoinApi.retrofitService.getCoins(limit)
@@ -74,7 +78,7 @@ class CoinRepository(private val database: CoinDatabase, context: Context) {
     }
 
     suspend fun loadCoinWithTransactions() {
-        loadCoins(5000)
+        loadCoins(500)
         val loaded = database.coinDao.getPortfolioTransactions()
         var hashMap = HashMap<Coin, MutableList<PortfolioTransaction>>()
         loaded.forEach {

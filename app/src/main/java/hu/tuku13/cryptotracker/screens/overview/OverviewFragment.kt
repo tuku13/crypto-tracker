@@ -31,8 +31,6 @@ class OverviewFragment() : Fragment() {
         val binding = FragmentOverviewBinding.inflate(inflater)
         binding.lifecycleOwner = this
 
-        val application = requireNotNull(this.activity).application
-
         val viewModelFactory = OverviewViewModel.Factory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(OverviewViewModel::class.java)

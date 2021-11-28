@@ -22,12 +22,6 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideRandomString() : String {
-        return "ASDASDASD"
-    }
-
-    @Singleton
-    @Provides
     fun provideRepository(@ApplicationContext app: Context) : CoinRepository {
         return CoinRepository(getDatabase(app), app)
     }

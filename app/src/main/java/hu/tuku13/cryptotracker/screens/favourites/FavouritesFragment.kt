@@ -31,8 +31,6 @@ class FavouritesFragment : Fragment() {
         val binding = FragmentFavouritesBinding.inflate(layoutInflater)
         binding.lifecycleOwner = this
 
-        val application = requireNotNull(this.activity).application
-
         val viewModelFactory = FavouriteViewModel.Factory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(FavouriteViewModel::class.java)
