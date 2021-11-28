@@ -10,9 +10,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class FavouriteViewModel(
-    private val application: Application
+    private val coinRepository: CoinRepository
 ) : ViewModel() {
-    private val coinRepository = CoinRepository(getDatabase(application), application)
     val favouriteCoins = coinRepository.favouriteCoins
 
     val isEmpty = Transformations.map(favouriteCoins) {
@@ -49,11 +48,11 @@ class FavouriteViewModel(
 
 
     class Factory(
-        private val application: Application
+        private val coinRepository: CoinRepository
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if(modelClass.isAssignableFrom(FavouriteViewModel::class.java)) {
-                return FavouriteViewModel(application) as T
+                return FavouriteViewModel(coinRepository) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")
         }

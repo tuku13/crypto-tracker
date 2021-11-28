@@ -10,9 +10,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class OverviewViewModel(
-    private val application: Application
+    private val coinRepository: CoinRepository
 ) : ViewModel(){
-    private val coinRepository = CoinRepository(getDatabase(application), application)
     val coins = coinRepository.coins
 
     private val _navigateToCoinDetails = MutableLiveData<Coin?>()
@@ -43,11 +42,11 @@ class OverviewViewModel(
 
 
     class Factory(
-        private val application: Application
+        private val repository: CoinRepository
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if(modelClass.isAssignableFrom(OverviewViewModel::class.java)) {
-                return OverviewViewModel(application) as T
+                return OverviewViewModel(repository) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")
         }

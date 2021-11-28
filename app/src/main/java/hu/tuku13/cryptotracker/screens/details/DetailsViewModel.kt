@@ -12,11 +12,9 @@ import kotlinx.coroutines.launch
 import kotlin.concurrent.thread
 
 class DetailsViewModel(
-    private val application: Application,
+    private val coinRepository: CoinRepository,
     val coin: Coin
 ) : ViewModel(){
-    private val coinRepository = CoinRepository(getDatabase(application), application)
-
     private val _selectedCoin = MutableLiveData<Coin>()
 
     init {
@@ -52,12 +50,12 @@ class DetailsViewModel(
     }
 
     class Factory(
-        private val application: Application,
+        private val coinRepository: CoinRepository,
         private val coin: Coin
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if(modelClass.isAssignableFrom(DetailsViewModel::class.java)) {
-                return DetailsViewModel(application, coin) as T
+                return DetailsViewModel(coinRepository, coin) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")
         }

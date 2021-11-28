@@ -1,6 +1,7 @@
 package hu.tuku13.cryptotracker.screens.overview
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,13 +11,18 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import dagger.hilt.android.AndroidEntryPoint
 import hu.tuku13.cryptotracker.adapters.CoinAdapter
 import hu.tuku13.cryptotracker.databinding.FragmentOverviewBinding
 import hu.tuku13.cryptotracker.repository.CoinRepository
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class OverviewFragment() : Fragment() {
     private lateinit var viewModel: OverviewViewModel
     private lateinit var adapter: CoinAdapter
+    @Inject
+    lateinit var repository: CoinRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,7 +33,7 @@ class OverviewFragment() : Fragment() {
 
         val application = requireNotNull(this.activity).application
 
-        val viewModelFactory = OverviewViewModel.Factory(application)
+        val viewModelFactory = OverviewViewModel.Factory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(OverviewViewModel::class.java)
         binding.viewModel = viewModel

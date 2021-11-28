@@ -10,10 +10,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class AddToPortfolioViewModel(
-    private val application: Application,
+    private val coinRepository: CoinRepository,
     val coin: Coin
 ) : ViewModel() {
-    private val coinRepository = CoinRepository(getDatabase(application), application)
 
     private val _addedToPortfolio = MutableLiveData<Boolean>()
     val addedToPortfolio : LiveData<Boolean>
@@ -45,12 +44,12 @@ class AddToPortfolioViewModel(
     }
 
     class Factory(
-        private val application: Application,
+        private val coinRepository: CoinRepository,
         val coin: Coin
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if(modelClass.isAssignableFrom(AddToPortfolioViewModel::class.java)) {
-                return AddToPortfolioViewModel(application, coin) as T
+                return AddToPortfolioViewModel(coinRepository, coin) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")
         }

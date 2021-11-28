@@ -11,9 +11,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class PortfolioInfoViewModel(
-    private val application: Application
+    private val coinRepository: CoinRepository
 ): ViewModel() {
-    private val coinRepository = CoinRepository(getDatabase(application), application)
     val coinWithPortfolioTransactions = coinRepository.coinWithTransaction
 
     init {
@@ -23,11 +22,11 @@ class PortfolioInfoViewModel(
     }
 
     class Factory(
-        private val application: Application
+        private val coinRepository: CoinRepository
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if(modelClass.isAssignableFrom(PortfolioInfoViewModel::class.java)) {
-                return PortfolioInfoViewModel(application) as T
+                return PortfolioInfoViewModel(coinRepository) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")
         }

@@ -10,16 +10,22 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import hu.tuku13.cryptotracker.LogoSize
 import hu.tuku13.cryptotracker.Util
 import hu.tuku13.cryptotracker.databinding.FragmentAddToPortfolioBinding
 import hu.tuku13.cryptotracker.domain.Coin
+import hu.tuku13.cryptotracker.repository.CoinRepository
 import java.util.*
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class AddToPortfolioFragment : Fragment() {
     private lateinit var binding: FragmentAddToPortfolioBinding
     private lateinit var viewModel: AddToPortfolioViewModel
     var date: Long = Calendar.getInstance().timeInMillis
+    @Inject
+    lateinit var repository: CoinRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,7 +37,7 @@ class AddToPortfolioFragment : Fragment() {
         val coin = AddToPortfolioFragmentArgs.fromBundle(requireArguments()).coin
         val application = requireNotNull(this.activity).application
 
-        val viewModelFactory = AddToPortfolioViewModel.Factory(application, coin)
+        val viewModelFactory = AddToPortfolioViewModel.Factory(repository, coin)
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(AddToPortfolioViewModel::class.java)
         binding.viewModel = viewModel

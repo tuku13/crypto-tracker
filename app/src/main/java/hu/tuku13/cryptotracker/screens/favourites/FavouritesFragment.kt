@@ -9,14 +9,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.transition.Visibility
+import dagger.hilt.android.AndroidEntryPoint
 import hu.tuku13.cryptotracker.R
 import hu.tuku13.cryptotracker.adapters.CoinAdapter
 import hu.tuku13.cryptotracker.databinding.FragmentFavouritesBinding
+import hu.tuku13.cryptotracker.repository.CoinRepository
 import hu.tuku13.cryptotracker.screens.overview.OverviewFragmentDirections
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class FavouritesFragment : Fragment() {
     private lateinit var viewModel: FavouriteViewModel
     private lateinit var adapter: CoinAdapter
+    @Inject
+    lateinit var repository: CoinRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,7 +33,7 @@ class FavouritesFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
 
-        val viewModelFactory = FavouriteViewModel.Factory(application)
+        val viewModelFactory = FavouriteViewModel.Factory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(FavouriteViewModel::class.java)
         binding.viewModel = viewModel

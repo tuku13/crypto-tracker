@@ -10,17 +10,23 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import hu.tuku13.cryptotracker.LogoSize
 import hu.tuku13.cryptotracker.R
 import hu.tuku13.cryptotracker.Util
 import hu.tuku13.cryptotracker.databinding.FragmentDetailsBinding
 import hu.tuku13.cryptotracker.domain.Coin
+import hu.tuku13.cryptotracker.repository.CoinRepository
 import hu.tuku13.cryptotracker.screens.overview.OverviewFragmentDirections
 import java.text.DecimalFormat
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class DetailsFragment : Fragment() {
     private lateinit var binding: FragmentDetailsBinding
     private lateinit var viewModel: DetailsViewModel
+    @Inject
+    lateinit var repository: CoinRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +38,7 @@ class DetailsFragment : Fragment() {
         val selectedCoin = DetailsFragmentArgs.fromBundle(requireArguments()).coin
         val application = requireNotNull(this.activity).application
 
-        val viewModelFactory = DetailsViewModel.Factory(application, selectedCoin)
+        val viewModelFactory = DetailsViewModel.Factory(repository, selectedCoin)
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(DetailsViewModel::class.java)
         binding.viewModel = viewModel

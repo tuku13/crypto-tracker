@@ -9,13 +9,19 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 import hu.tuku13.cryptotracker.R
 import hu.tuku13.cryptotracker.adapters.PortfolioPageStateAdapter
 import hu.tuku13.cryptotracker.databinding.FragmentPortfolioBinding
+import hu.tuku13.cryptotracker.repository.CoinRepository
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class PortfolioFragment : Fragment() {
     private lateinit var viewModel: PortfolioViewModel
     private lateinit var binding: FragmentPortfolioBinding
+    @Inject
+    lateinit var repository: CoinRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,7 +31,7 @@ class PortfolioFragment : Fragment() {
         binding.lifecycleOwner = this
         val application = requireNotNull(activity).application
 
-        val viewModelFactory = PortfolioViewModel.Factory(application)
+        val viewModelFactory = PortfolioViewModel.Factory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(PortfolioViewModel::class.java)
         binding.viewModel = viewModel
