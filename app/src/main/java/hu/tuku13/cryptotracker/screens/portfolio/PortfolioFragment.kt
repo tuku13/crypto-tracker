@@ -22,7 +22,7 @@ class PortfolioFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentPortfolioBinding.inflate(layoutInflater)
-        //binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = this
         val application = requireNotNull(activity).application
 
         val viewModelFactory = PortfolioViewModel.Factory(application)

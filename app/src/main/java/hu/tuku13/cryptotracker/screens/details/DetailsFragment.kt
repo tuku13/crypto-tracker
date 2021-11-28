@@ -27,7 +27,7 @@ class DetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentDetailsBinding.inflate(layoutInflater)
-        //binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = this
 
         val selectedCoin = DetailsFragmentArgs.fromBundle(requireArguments()).coin
         val application = requireNotNull(this.activity).application

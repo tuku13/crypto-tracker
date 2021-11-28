@@ -23,7 +23,7 @@ class FavouritesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentFavouritesBinding.inflate(layoutInflater)
-        //binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = this
 
         val application = requireNotNull(this.activity).application
 

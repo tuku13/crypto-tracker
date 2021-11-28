@@ -26,6 +26,7 @@ class AddToPortfolioFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentAddToPortfolioBinding.inflate(layoutInflater)
+        binding.lifecycleOwner = this
 
         val coin = AddToPortfolioFragmentArgs.fromBundle(requireArguments()).coin
         val application = requireNotNull(this.activity).application

@@ -23,7 +23,7 @@ class OverviewFragment() : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentOverviewBinding.inflate(inflater)
-        //binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = this
 
         val application = requireNotNull(this.activity).application
 

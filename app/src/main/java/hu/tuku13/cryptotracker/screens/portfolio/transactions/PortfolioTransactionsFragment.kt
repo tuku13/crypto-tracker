@@ -21,6 +21,8 @@ class PortfolioTransactionsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentPortfolioTransactionsBinding.inflate(layoutInflater)
+        binding.lifecycleOwner = this
+
         val application = requireNotNull(this.activity).application
 
         val viewModelFactory = PortfolioTransactionsViewModel.Factory(application)

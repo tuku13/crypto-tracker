@@ -30,6 +30,10 @@ class CoinRepository(private val database: CoinDatabase, context: Context) {
     val portfolioTransactions : LiveData<List<PortfolioTransaction>>
         get() = _portfolioTransactions
 
+    private val _coinWithTransaction = MutableLiveData<HashMap<Coin, MutableList<PortfolioTransaction>>>()
+    val coinWithTransaction : LiveData<HashMap<Coin, MutableList<PortfolioTransaction>>>
+        get() = _coinWithTransaction
+
     private suspend fun downloadCoinsFromAPI(limit : Int = 15) {
         try {
             val response = CoinApi.retrofitService.getCoins(limit)
@@ -69,6 +73,25 @@ class CoinRepository(private val database: CoinDatabase, context: Context) {
         }
     }
 
+    suspend fun loadCoinWithTransactions() {
+        loadCoins(5000)
+        val loaded = database.coinDao.getPortfolioTransactions()
+        var hashMap = HashMap<Coin, MutableList<PortfolioTransaction>>()
+        loaded.forEach {
+            val coin = getCoinById(it.coinId)
+            var list = hashMap[coin] ?: mutableListOf()
+            list.add(it.asDomainModel())
+            hashMap[coin] = list
+        }
+        _coinWithTransaction.postValue(hashMap)
+    }
+
+    private fun getCoinById(id: Int) : Coin {
+        return _coins.value?.first {
+            it.id == id
+        }!!
+    }
+
     private fun shouldRefreshCache(): Boolean {
         val now = System.currentTimeMillis()
         val lastUpdate = sharedPreferences.getLong("lastUpdate", 0)
@@ -77,7 +100,7 @@ class CoinRepository(private val database: CoinDatabase, context: Context) {
 //        Log.d("CACHE", "Now: $now")
 //        Log.d("CACHE", "Last: $lastUpdate")
 //        Log.d("CACHE", "Difference: $difference")
-        if(difference >= 3000000) {
+        if(difference >= 300000) {
             editor.putLong("lastUpdate", now)
             editor.apply()
 
