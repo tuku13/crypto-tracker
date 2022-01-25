@@ -49,6 +49,7 @@ class PortfolioInfoFragment : Fragment() {
                 barEntries.add(barEntry)
             }
             val pieDataSet = PieDataSet(pieEntries, "Coins")
+            pieDataSet.label = ""
             pieDataSet.colors = ColorTemplate.MATERIAL_COLORS.toList()
 
             val pieData = PieData(pieDataSet)
@@ -57,6 +58,8 @@ class PortfolioInfoFragment : Fragment() {
             binding.pieChart.holeRadius = 0F
             binding.pieChart.setTransparentCircleAlpha(0)
             binding.pieChart.setUsePercentValues(false)
+            binding.pieChart.description.isEnabled = false
+            binding.pieChart.legend.isEnabled = false
             binding.pieChart.invalidate()
 
             val barDataSet = BarDataSet(barEntries, "Coins")
@@ -64,7 +67,10 @@ class PortfolioInfoFragment : Fragment() {
             barDataSet.valueTextColor = Color.BLACK
 
             val barData = BarData(barDataSet)
+            barData.isHighlightEnabled = false
             binding.barChart.data = barData
+            binding.barChart.legend.isEnabled = false
+            binding.barChart.description.isEnabled = false
             binding.barChart.invalidate()
 
         })

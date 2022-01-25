@@ -62,7 +62,7 @@ class AddToPortfolioFragment : Fragment() {
 
         viewModel.addedToPortfolio.observe(viewLifecycleOwner, Observer {
             if(it == true) {
-                Snackbar.make(binding.btnAdd, "Added", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(binding.btnAdd, "Transaction added to your portfolio.", Snackbar.LENGTH_SHORT).show()
                 viewModel.addToPortfolioCompleted()
                 findNavController().navigate(AddToPortfolioFragmentDirections
                     .actionAddToPortfolioFragmentToPortfolioFragment()

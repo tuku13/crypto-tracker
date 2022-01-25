@@ -3,9 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidStudioProjects/CryptoTracker/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3880208333333333" />
         <entry key="..\:/AndroidStudioProjects/CryptoTracker/app/src/main/res/drawable/ic_add_to_favourites.xml" value="0.28541666666666665" />
         <entry key="..\:/AndroidStudioProjects/CryptoTracker/app/src/main/res/drawable/ic_delete.xml" value="0.2953125" />
         <entry key="..\:/AndroidStudioProjects/CryptoTracker/app/src/main/res/drawable/ic_delete2.xml" value="0.2953125" />
+        <entry key="..\:/AndroidStudioProjects/CryptoTracker/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3880208333333333" />
+        <entry key="..\:/AndroidStudioProjects/CryptoTracker/app/src/main/res/drawable/ic_logo_background.xml" value="0.3880208333333333" />
         <entry key="..\:/AndroidStudioProjects/CryptoTracker/app/src/main/res/drawable/ic_plus_icon.xml" value="0.29322916666666665" />
         <entry key="..\:/AndroidStudioProjects/CryptoTracker/app/src/main/res/drawable/ic_remove_from_favourites.xml" value="0.28541666666666665" />
         <entry key="..\:/AndroidStudioProjects/CryptoTracker/app/src/main/res/layout-v26/coin_list_item.xml" value="0.24114583333333334" />
@@ -23,6 +26,7 @@
         <entry key="..\:/AndroidStudioProjects/CryptoTracker/app/src/main/res/layout/overview_list_item.xml" value="0.33" />
         <entry key="..\:/AndroidStudioProjects/CryptoTracker/app/src/main/res/layout/portfolio_list_item.xml" value="0.33" />
         <entry key="..\:/AndroidStudioProjects/CryptoTracker/app/src/main/res/menu/bottom_menu.xml" value="0.33" />
+        <entry key="..\:/AndroidStudioProjects/CryptoTracker/app/src/main/res/mipmap-anydpi-v26/ic_logo.xml" value="0.3880208333333333" />
       </map>
     </option>
   </component>

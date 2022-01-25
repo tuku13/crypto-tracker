@@ -405,7 +405,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:onClick="@{() -> viewModel.addToPortfolio()}"
-                    android:text="Add to portfolio"/>
+                    android:text="@string/add_to_portfolio"/>
 
             </LinearLayout>
 

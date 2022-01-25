@@ -13,6 +13,7 @@ class OverviewViewModel(
     private val coinRepository: CoinRepository
 ) : ViewModel(){
     val coins = coinRepository.coins
+    var filter = MutableLiveData("")
 
     private val _navigateToCoinDetails = MutableLiveData<Coin?>()
     val navigateToCoinDetails: LiveData<Coin?>

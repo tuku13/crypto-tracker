@@ -34,10 +34,6 @@ class CoinRepository(private val database: CoinDatabase, context: Context) {
     val coinWithTransaction : LiveData<HashMap<Coin, MutableList<PortfolioTransaction>>>
         get() = _coinWithTransaction
 
-    init {
-        Log.d("DI teszt", "én vagyoksz: $this")
-    }
-
     private suspend fun downloadCoinsFromAPI(limit : Int = 15) {
         try {
             val response = CoinApi.retrofitService.getCoins(limit)
@@ -101,17 +97,12 @@ class CoinRepository(private val database: CoinDatabase, context: Context) {
         val lastUpdate = sharedPreferences.getLong("lastUpdate", 0)
         val difference = now - lastUpdate
 
-//        Log.d("CACHE", "Now: $now")
-//        Log.d("CACHE", "Last: $lastUpdate")
-//        Log.d("CACHE", "Difference: $difference")
-        if(difference >= 300000) {
+        if(difference >= 5 * 60 * 1000) {
             editor.putLong("lastUpdate", now)
             editor.apply()
 
-//            Log.d("CACHE", "REMOTE")
             return true
         }
-//        Log.d("CACHE", "LOCAL")
         return false
     }
 

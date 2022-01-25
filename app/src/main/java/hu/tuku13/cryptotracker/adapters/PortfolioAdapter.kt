@@ -1,5 +1,6 @@
 package hu.tuku13.cryptotracker.adapters
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
@@ -27,14 +28,12 @@ class PortfolioAdapter(
         set(value) {
             field = value
             notifyDataSetChanged()
-            Log.d("SET portfolio", "meret: ${value.size}")
         }
 
     var coins : List<Coin> = emptyList()
         set(value) {
             field = value
             notifyDataSetChanged()
-            Log.d("SET coins", "coins: ${coins.size}")
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -59,7 +58,7 @@ class PortfolioAdapter(
         holder.price.text = parentContext
             .getString(R.string.coin_price, item.price)
 
-        holder.date.text = convertLongToTime(item.date) //TODO szepen formazni
+        holder.date.text = convertLongToTime(item.date)
 
         holder.btnDelete.setOnClickListener {
             onClickListener.onClick(item)
@@ -75,6 +74,7 @@ class PortfolioAdapter(
             it.id == id
         }
     }
+    @SuppressLint("SimpleDateFormat")
     private fun convertLongToTime(time: Long): String {
         val date = Date(time)
         val format = SimpleDateFormat("yyyy.MM.dd")
