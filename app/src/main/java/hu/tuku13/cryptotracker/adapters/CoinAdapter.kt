@@ -17,7 +17,6 @@ import hu.tuku13.cryptotracker.screens.overview.OverviewViewModel
 class CoinAdapter(
     private val onClickListener: OnClickListener
     ): RecyclerView.Adapter<CoinAdapter.ViewHolder>() {
-    //listOf(testBTC, testETH, testETH, testBTC, testBTC, testBTC, testETH, testETH, testETH, testETH, testETH, testBTC)
     var coinsList : List<Coin> = emptyList()
         set(value) {
             field = value
