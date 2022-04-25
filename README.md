@@ -1,5 +1,8 @@
 # CryptoTracker Android app
 
+Videó az alkalmazásról működés közben: 
+[YouTube-on](https://youtu.be/t1b9z856VwI)
+
 ## Főbb funkciók:
 - Kriptovaluták listázása
 - Kriptovaluta fontosabb adatainak megjelenítése
