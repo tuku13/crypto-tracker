@@ -3,6 +3,23 @@
 Videó az alkalmazásról működés közben: 
 [YouTube-on](https://youtu.be/t1b9z856VwI)
 
+##Képek:
+
+[Overview](images/overview.png)
+
+[Details top half](images/details1.png)
+
+[Details bottom half](images/details2.png)
+
+[Favourites](images/favourites.png)
+
+[Add coin to portfolio](images/add_to_portfolio.png)
+
+[Transactions](images/transactions.png)
+
+[Diagrams](images/diagrams.png)
+
+
 ## Főbb funkciók:
 - Kriptovaluták listázása
 - Kriptovaluta fontosabb adatainak megjelenítése
