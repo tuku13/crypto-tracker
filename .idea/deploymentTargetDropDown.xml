@@ -7,11 +7,11 @@
         <deviceKey>
           <Key>
             <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\Martin\.android\avd\Flutter_Pixel_4_XL.avd" />
+            <value value="C:\Users\Martin\.android\avd\Pixel_4_XL_API_Tiramisu.avd" />
           </Key>
         </deviceKey>
       </Target>
     </targetSelectedWithDropDown>
-    <timeTargetWasSelectedWithDropDown value="2021-11-27T20:49:58.995463900Z" />
+    <timeTargetWasSelectedWithDropDown value="2022-04-25T16:29:07.357235Z" />
   </component>
 </project>
