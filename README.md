@@ -5,20 +5,19 @@ Videó az alkalmazásról működés közben:
 
 ##Képek:
 
-[Overview](images/overview.png)
+![Overview](images/overview.png)
 
-[Details top half](images/details1.png)
+![Details top half](images/details1.png)
 
-[Details bottom half](images/details2.png)
+![Details bottom half](images/details2.png)
 
-[Favourites](images/favourites.png)
+![Favourites](images/favourites.png)
 
-[Add coin to portfolio](images/add_to_portfolio.png)
+![Add coin to portfolio](images/add_to_portfolio.png)
 
-[Transactions](images/transactions.png)
+![Transactions](images/transactions.png)
 
-[Diagrams](images/diagrams.png)
-
+![Diagrams](images/diagrams.png)
 
 ## Főbb funkciók:
 - Kriptovaluták listázása
